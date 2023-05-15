@@ -8,8 +8,10 @@ function startListening() {
 
   f122.on('motion', function(data) {
     console.log("data: " + data);
-    // Aquí puedes procesar los datos recibidos
     ipcMain.emit('motion-data', data);
+  });
+  f122.on('carStatus', function(data) {
+    
   });
 }
 
