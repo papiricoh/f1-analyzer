@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+
+* {
+    font-family: 'Anton', sans-serif;
+}
+
+html {
+    width: 100%;
+    height: 100%;
+}
+body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    background-color: #6a040f;
+}
+#app {
+    width: 100%;
+    height: 100%;
+}
+.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+    align-items: stretch;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #03071e;
+    padding: 0 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.329);
+}
+
+header > img {
+    margin: 1rem;
+}
+
+.header_button {
+    color: white;
+    text-align: center;
+    width: 8rem;
+    cursor: pointer;
+    align-self: flex-end;
+    height: 4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: .4s;
+}
+
+.header_button:hover {
+    background-color: #370617;
+    transition: .4s;
+}
+
+.header_button:active {
+    background-color: transparent;
+    transition: .4s;
+}
+
+.page {
+    padding: 1.4rem;
+}
+
+.car_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    height: 100%;
+    gap: 1rem;
+}
+
+.car_container {
+    min-height: 12rem;
+    background-color: #03071e;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.499);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 1rem;
+    gap: 1rem;
+}
+.car_container > * {
+    color: white;
+}
+
+.title {
+    font-size: xx-large;
+}
+
+.rpm_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+.rpm {
+    width: 100%;
+}
+
+.loading_container {
+    background-color: #e9ecef;
+    height: 1rem;
+    width: 100%;
+    border-radius: 1rem;
+}
+
+.loading_body {
+    background-color: #6a040f;
+    height: 1rem;
+    width: 100%;
+    border-radius: 1rem;
+}
