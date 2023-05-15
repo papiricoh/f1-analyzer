@@ -1,6 +1,7 @@
 import { app, BrowserWindow, shell, ipcMain } from 'electron'
 import { release } from 'node:os'
 import { join } from 'node:path'
+import startListening from '../f1/f1Listener'
 
 // The built directory structure
 //
@@ -77,7 +78,10 @@ async function createWindow() {
   // win.webContents.on('will-navigate', (event, url) => { }) #344
 }
 
-app.whenReady().then(createWindow)
+app.whenReady().then(() => {
+  createWindow();
+  startListening();
+});
 
 app.on('window-all-closed', () => {
   win = null
