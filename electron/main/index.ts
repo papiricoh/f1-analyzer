@@ -76,11 +76,11 @@ async function createWindow() {
     return { action: 'deny' }
   })
   // win.webContents.on('will-navigate', (event, url) => { }) #344
+  startListening(win);
 }
 
 app.whenReady().then(() => {
   createWindow();
-  startListening();
 });
 
 app.on('window-all-closed', () => {

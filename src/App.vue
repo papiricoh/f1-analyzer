@@ -1,20 +1,22 @@
-<script setup lang="ts">
+<script setup>
 import CarPage from './components/CarPage.vue'
 </script>
 
-<script lang="ts">
+<script>
 import { ipcRenderer } from 'electron';
 
 export default {
   data() {
     return {
       page: 'car',
-      motionData: null
+      motionData: null,
+      car_index: 0,
     };
   },
-  mounted() {
+  created() {
     ipcRenderer.on('motion-data', (event, data) => {
-      this.motionData = data;
+      this.motionData = data.m_carTelemetryData;
+      this.car_index = data.m_header.m_playerCarIndex;
     });
   },
   beforeDestroy() {
@@ -34,7 +36,7 @@ export default {
       <div class="header_button" @click="page = 'config'">CONFIGURATION</div>
     </header>
     <div class="page">
-      <CarPage v-if="page == 'car'"></CarPage>
+      <CarPage :car_index="car_index" :telemetry="motionData" v-if="page == 'car'"></CarPage>
     </div>
   </div>
 </template>
