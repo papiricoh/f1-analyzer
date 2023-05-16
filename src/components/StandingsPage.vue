@@ -5,7 +5,7 @@ export default {
   },
   data() {
     return {
-        sesion_info: { track: "Miami", weather: 'Dry', temp: '32' },
+        sesion_info: { track: "Miami", weather: 'Dry', temp: '32', type: 'race' },
         fastest_lap: { name: 'Perez', time: '1:22.322', S1: 56.2, S2: 42.3, S3: 62.31 },
         cars: [
             { pos: 1, name: 'Alonso', team: 'Aston Martin', tyres: 'medium', tyre_age: 22, fastest_lap: '1:23.231', gap: '0:0', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23.321', speed_trap: 334 },
@@ -40,6 +40,7 @@ export default {
     <div class="standings_page">
         <div class="sesion_info">
             <div>{{ sesion_info.track }} Grand Prix</div>
+            <div>Type: {{ sesion_info.type }}</div>
             <div>Weather: {{ sesion_info.weather }}</div>
             <div>Temperature: {{ sesion_info.temp }}º</div>
             <div>Fastest lap: {{ fastest_lap.name }}  -  {{ fastest_lap.time }}</div>
