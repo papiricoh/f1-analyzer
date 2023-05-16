@@ -16,8 +16,7 @@ export default {
   },
   data() {
     return {
-        car: { speed: 230.3, rpm: 10532, gear: 5},
-        
+      car: { speed: 230.3, rpm: 10532, gear: 5},
     };
   },
   methods: {
