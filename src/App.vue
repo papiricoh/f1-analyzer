@@ -1,6 +1,7 @@
 <script setup>
 import CarPage from './components/CarPage.vue';
 import StandingsPage from './components/StandingsPage.vue';
+import Notification from './components/Notification.vue';
 </script>
 
 <script>
@@ -12,6 +13,8 @@ export default {
       page: 'car',
       motionData: null,
       car_index: 0,
+      notification_on: false,
+      notification_data: { type: 'yellow_flag', text: 'Yellow flag in sector 3: Versapen\'s Crash into turn 14'},
     };
   },
   created() {
@@ -22,6 +25,11 @@ export default {
   },
   beforeDestroy() {
     ipcRenderer.removeAllListeners('motion-data');
+  },
+  methods: {
+    closeNotification() {
+      this.notification_on = false;
+    }
   }
 };
 </script>
@@ -40,5 +48,6 @@ export default {
       <CarPage :car_index="car_index" :telemetry="motionData" v-if="page == 'car'"></CarPage>
       <StandingsPage v-if="page == 'standings'"></StandingsPage>
     </div>
+    <Notification @closeNotification="closeNotification" :data="notification_data" class="notification" v-if="notification_on"></Notification>
   </div>
 </template>

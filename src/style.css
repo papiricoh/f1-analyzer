@@ -149,6 +149,38 @@ header > img {
     align-items: center;
 }
 
-.p {
-    color: #6a040f;
+.notification {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.notification_body {
+    background-color: #03071e;
+    height: 14rem;
+    min-width: 26rem;
+    max-width: 30%;
+    margin: 2rem;
+    transition: .4s;
+    padding: 1.4rem;
+    border-radius: .4rem;
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.39);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2rem;
+}
+
+.notification_body > * {
+    color: white;
+}
+
+.notification_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
 }
