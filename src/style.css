@@ -1,4 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=Anton&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap'); */
+
+@font-face {
+    font-family: Formula1;
+    src: url("../public/Formula1-Regular.otf") format("opentype");
+}
 
 * {
     font-family: 'Anton', sans-serif;
@@ -102,14 +107,14 @@ header > img {
     align-items: stretch;
 }
 
-.standings_table_container > * {
+.standings_table_container > *, .sesion_info > * {
     color: white;
 }
 
 .table_row {
     padding: .4rem 1rem;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr 2fr 1fr 1fr 1fr 2fr;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 2fr 1fr;
 }
 .table_row:nth-child(2n) {
     background-color: #230404;
@@ -118,11 +123,25 @@ header > img {
 .table_row > div {
     display: flex;
     align-items: center;
+    gap: .2rem;
 }
 
-.tyre_age {
-    z-index: 1;
-    position: relative;
-    left: -1.2rem;
-    color: white;
+.sesion_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #03071e;
+    padding: .4rem 2rem;
+}
+
+.standings_page {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1rem;
+}
+
+.sesion_info > div {
+    display: flex;
+    align-items: center;
 }
