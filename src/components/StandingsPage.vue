@@ -8,27 +8,28 @@ export default {
         sesion_info: { track: "Miami", weather: 'Dry', temp: '32' },
         fastest_lap: { name: 'Perez', time: '1:22.322', S1: 56.2, S2: 42.3, S3: 62.31 },
         cars: [
-            { pos: 1, name: 'Alonso', tyres: 'medium', tyre_age: 22, fastest_lap: '1:23.231', gap: '0:0', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23.321', speed_trap: 334 },
-            { pos: 2, name: 'Perez', tyres: 'hard', tyre_age: 42, fastest_lap: '1:23.231', gap: '+0.234', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23:321', speed_trap: 334 },
-            { pos: 3, name: 'Sainz', tyres: 'soft', tyre_age: 2, fastest_lap: '1:23.231', gap: '+3.522', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23.321', speed_trap: 334 },
-            { pos: 4, name: 'Verstapen', tyres: 'wet', tyre_age: 22, fastest_lap: '1:23.231', gap: '+4.522', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23.321', speed_trap: 334 },
+            { pos: 1, name: 'Alonso', team: 'Aston Martin', tyres: 'medium', tyre_age: 22, fastest_lap: '1:23.231', gap: '0:0', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23.321', speed_trap: 334 },
+            { pos: 2, name: 'Perez', team: 'Red Bull', tyres: 'hard', tyre_age: 42, fastest_lap: '1:23.231', gap: '+0.234', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23:321', speed_trap: 334 },
+            { pos: 3, name: 'Sainz', team: 'Ferrari', tyres: 'soft', tyre_age: 2, fastest_lap: '1:23.231', gap: '+3.522', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23.321', speed_trap: 334 },
+            { pos: 4, name: 'Verstapen', team: 'Red Bull', tyres: 'wet', tyre_age: 22, fastest_lap: '1:23.231', gap: '+4.522', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23.321', speed_trap: 334 },
+            { pos: 5, name: 'Gasly', team: 'Alpine', tyres: 'intermediate', tyre_age: 12    , fastest_lap: '1:23.231', gap: '+5.522', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23.321', speed_trap: 334 },
         ],
     };
   },
   methods: {
     renderTyre(tyre) {
         if(tyre == 'soft') {
-            return '/public/tyres/soft.svg';
+            return '/tyres/soft.svg';
         }else if(tyre == 'medium') {
-            return '/public/tyres/medium.svg';
+            return '/tyres/medium.svg';
         }else if(tyre == 'hard') {
-            return '/public/tyres/hard.svg';
+            return '/tyres/hard.svg';
         }else if(tyre == 'intermediate') {
-            return '/public/tyres/intermediate.svg';
+            return '/tyres/intermediate.svg';
         }else if(tyre == 'wet') {
-            return '/public/tyres/wet.svg';
+            return '/tyres/wet.svg';
         }else {
-            return '/public/tyres/soft.svg';
+            return '/tyres/soft.svg';
         }
     }
   }
@@ -47,6 +48,7 @@ export default {
             <div class="table_row">
                 <div>POS</div>
                 <div>NAME</div>
+                <div>TEAM</div>
                 <div>TYRES</div>
                 <div>FASTEST LAP</div>
                 <div>GAP</div>
@@ -59,6 +61,7 @@ export default {
             <div v-for="car in cars" class="table_row">
                 <div>{{car.pos}}</div>
                 <div>{{car.name}}</div>
+                <div>{{car.team}}</div>
                 <div>
                     <img height="30" :src="renderTyre(car.tyres)" alt="">
                     <div class="tyre_age">{{car.tyre_age}}</div>

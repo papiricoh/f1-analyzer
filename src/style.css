@@ -1,12 +1,13 @@
 /* @import url('https://fonts.googleapis.com/css2?family=Anton&display=swap'); */
 
 @font-face {
-    font-family: Formula1;
-    src: url("../public/Formula1-Regular.otf") format("opentype");
+    font-family: 'Formula1';
+    src: url("/Formula1-Regular.otf") format("opentype"), url("/Formula1-Bold.otf") format("opentype"), url("/Formula1-Wide.otf") format("opentype");
 }
 
 * {
-    font-family: 'Anton', sans-serif;
+    font-family: 'Formula1', sans-serif;
+    font-size: small;
 }
 
 html {
@@ -56,6 +57,7 @@ header > img {
     align-items: center;
     justify-content: center;
     transition: .4s;
+    font-size: small;
 }
 
 .header_button:hover {
@@ -114,7 +116,8 @@ header > img {
 .table_row {
     padding: .4rem 1rem;
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr 1fr 1fr 1fr 1fr 1fr 2fr 1fr;
+    gap: .4rem;
+    grid-template-columns: 1fr 2fr 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
 }
 .table_row:nth-child(2n) {
     background-color: #230404;
