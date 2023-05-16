@@ -15,6 +15,9 @@ function startListening(win) {
   f122.on('lapData', function(data) {
     win.webContents.send('lapData-data', data);
   });
+  f122.on('carStatus', function(data) {
+    win.webContents.send('carStatus-data', data);
+  });
 }
 
 export default startListening;

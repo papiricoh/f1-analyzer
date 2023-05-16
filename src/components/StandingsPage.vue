@@ -5,6 +5,7 @@ export default {
     participantsData: Array,
     car_index: Number,
     lapData: Array,
+    carStatus: Object,
   },
   data() {
     return {
@@ -13,6 +14,7 @@ export default {
         drivers: [],
         cars: [],
         renderer_cars: [],
+        render_index: 0,
     };
   },
   watch: { 
@@ -28,7 +30,7 @@ export default {
     lapData: function(newVal, oldVal) {
         for (let index = 0; index < newVal.length - 2; index++) {
             if(this.cars[index] != null) {
-                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.cars[index].team, tyres: this.cars[index].tyres, tyre_age: 0, fastest_lap: this.cars[index].fastest_lap, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS };
+                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.cars[index].team, tyres: this.cars[index].tyres, tyre_age: this.cars[index].tyre_age, fastest_lap: this.cars[index].fastest_lap, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS };
                 if(newVal[index].m_lastLapTimeInMS != 0 && newVal[index].m_lastLapTimeInMS < this.cars[index].fastest_lap) {
                     this.cars[index].fastest_lap = newVal[index].m_lastLapTimeInMS;
                 }
@@ -36,16 +38,28 @@ export default {
                     this.sesion_info.lap = newVal[index].m_currentLapNum;
                 }
             }else {
-                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.drivers.team, tyres: 'soft', tyre_age: 0, fastest_lap: 1000000000, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS };
+                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.drivers.team, tyres: 16, tyre_age: 0, fastest_lap: 1000000000, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS };
             }
         }
         this.orderList();
+    },
+    carStatus: function(newVal, oldVal) {
+        for (let index = 0; index < this.cars.length; index++) {
+            this.cars[index].tyre = newVal.m_carStatusData[index].m_visualTyreCompound;
+            this.cars[index].tyre_age = newVal.m_carStatusData[index].m_tyresAgeLaps;
+        }
     },
   },
   methods: {
     orderList() {
         let new_list = Array.from(this.cars);
+        let player_car = new_list[this.car_index];
         new_list.sort((a, b) => a.pos - b.pos);
+        for (let index = 0; index < new_list.length; index++) {
+            if(new_list[index] == player_car) {
+                this.render_index = index;
+            }
+        }
         if(this.sesion_info.lap > 1) {
             for (let index = 1; index < new_list.length; index++) {
                 new_list[index].gap = new_list[index - 1].current_lap - new_list[index].current_lap;
@@ -54,20 +68,20 @@ export default {
         this.renderer_cars = new_list;
     },
     isPlayerCss(car_pos) {
-        if(car_pos == this.car_index) {
+        if(car_pos == this.render_index) {
             return 'background-color: #6a040f;'
         }
     },
     renderTyre(tyre) {
-        if(tyre == 'soft') {
+        if(tyre == 16) {
             return '/tyres/soft.svg';
-        }else if(tyre == 'medium') {
+        }else if(tyre == 17) {
             return '/tyres/medium.svg';
-        }else if(tyre == 'hard') {
+        }else if(tyre == 18) {
             return '/tyres/hard.svg';
-        }else if(tyre == 'intermediate') {
+        }else if(tyre == 7) {
             return '/tyres/intermediate.svg';
-        }else if(tyre == 'wet') {
+        }else if(tyre == 8) {
             return '/tyres/wet.svg';
         }else {
             return '/tyres/soft.svg';
