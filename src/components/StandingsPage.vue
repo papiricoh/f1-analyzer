@@ -47,14 +47,14 @@ export default {
         let new_list = Array.from(this.cars);
         new_list.sort((a, b) => a.pos - b.pos);
         if(this.sesion_info.lap > 1) {
-            for (let index = 1; index < new_list.length - 1; index++) {
-                new_list[index].gap = new_list[index].current_lap - new_list[index - 1].current_lap;
+            for (let index = 1; index < new_list.length; index++) {
+                new_list[index].gap = new_list[index - 1].current_lap - new_list[index].current_lap;
             }
         }
         this.renderer_cars = new_list;
     },
     isPlayerCss(car_pos) {
-        if(car_pos == this.car_index + 1) {
+        if(car_pos == this.car_index) {
             return 'background-color: #6a040f;'
         }
     },
@@ -100,7 +100,7 @@ export default {
                 <div>LAST LAP</div>
                 <div>SPEED TRAP</div>
             </div>
-            <div v-for="car in renderer_cars" class="table_row" :style="isPlayerCss(car.pos)">
+            <div v-for="(car, index) in renderer_cars" class="table_row" :style="isPlayerCss(index)">
                 <div>{{car.pos}}</div>
                 <div>{{car.name}}</div>
                 <div>{{car.team}}</div>
