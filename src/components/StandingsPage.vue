@@ -5,6 +5,7 @@ export default {
   },
   data() {
     return {
+        player: { array_pos: 2 },
         sesion_info: { track: "Miami", weather: 'Dry', temp: '32', type: 'race' },
         fastest_lap: { name: 'Perez', time: '1:22.322', S1: 56.2, S2: 42.3, S3: 62.31 },
         cars: [
@@ -17,6 +18,11 @@ export default {
     };
   },
   methods: {
+    isPlayerCss(car_pos) {
+        if(car_pos == this.player.array_pos + 1) {
+            return 'background-color: #6a040f;'
+        }
+    },
     renderTyre(tyre) {
         if(tyre == 'soft') {
             return '/tyres/soft.svg';
@@ -59,7 +65,7 @@ export default {
                 <div>LAST LAP</div>
                 <div>SPEED TRAP</div>
             </div>
-            <div v-for="car in cars" class="table_row">
+            <div v-for="car in cars" class="table_row" :style="isPlayerCss(car.pos)">
                 <div>{{car.pos}}</div>
                 <div>{{car.name}}</div>
                 <div>{{car.team}}</div>
