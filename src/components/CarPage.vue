@@ -25,6 +25,10 @@ export default {
 };
 </script>
 
+<!--<div>{{ telemetry[car_index].m_engineRPM }}</div>
+  <div class="loading_container">
+    <div :style="'width: ' + (( telemetry[car_index].m_engineRPM / 15000 ) * 100).toFixed(0) + '%;'" class="loading_body"></div>
+  </div>-->
 
 <template>
   <div class="car_grid">
@@ -33,10 +37,6 @@ export default {
       <div class="rpm_container">
         <div>
           <div class="rpm">
-            <!--<div>{{ telemetry[car_index].m_engineRPM }}</div>
-              <div class="loading_container">
-                <div :style="'width: ' + (( telemetry[car_index].m_engineRPM / 15000 ) * 100).toFixed(0) + '%;'" class="loading_body"></div>
-              </div>-->
             <div style="text-align: center;">{{ 13000 }} rpm</div>
               <div class="loading_container">
                 <div :style="'width: ' + (( 13000 / 15000 ) * 100).toFixed(0) + '%;'" class="loading_body"></div>
