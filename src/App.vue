@@ -1,5 +1,6 @@
 <script setup>
-import CarPage from './components/CarPage.vue'
+import CarPage from './components/CarPage.vue';
+import StandingsPage from './components/StandingsPage.vue';
 </script>
 
 <script>
@@ -37,6 +38,7 @@ export default {
     </header>
     <div class="page">
       <CarPage :car_index="car_index" :telemetry="motionData" v-if="page == 'car'"></CarPage>
+      <StandingsPage v-if="page == 'standings'"></StandingsPage>
     </div>
   </div>
 </template>
