@@ -117,7 +117,7 @@ header > img {
     padding: .4rem 1rem;
     display: grid;
     gap: .4rem;
-    grid-template-columns: 1fr 2fr 1.2fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 2fr 1.2fr 1fr 1fr 1fr 1.2fr 1fr 1fr 1fr 1fr;
 }
 .table_row:nth-child(2n) {
     background-color: #230404;

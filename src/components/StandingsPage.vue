@@ -2,24 +2,59 @@
 
 export default {
   props: {
+    participantsData: Array,
+    car_index: Number,
+    lapData: Array,
   },
   data() {
     return {
-        player: { array_pos: 2 },
-        sesion_info: { track: "Miami", weather: 'Dry', temp: '32', type: 'race' },
+        sesion_info: { lap: 1, track: "Miami", weather: 'Dry', temp: '32', type: 'race' },
         fastest_lap: { name: 'Perez', time: '1:22.322', S1: 56.2, S2: 42.3, S3: 62.31 },
-        cars: [
-            { pos: 1, name: 'Alonso', team: 'Aston Martin', tyres: 'medium', tyre_age: 22, fastest_lap: '1:23.231', gap: '0:0', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23.321', speed_trap: 334 },
-            { pos: 2, name: 'Perez', team: 'Red Bull', tyres: 'hard', tyre_age: 42, fastest_lap: '1:23.231', gap: '+0.234', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23:321', speed_trap: 334 },
-            { pos: 3, name: 'Sainz', team: 'Ferrari', tyres: 'soft', tyre_age: 2, fastest_lap: '1:23.231', gap: '+3.522', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23.321', speed_trap: 334 },
-            { pos: 4, name: 'Verstapen', team: 'Red Bull', tyres: 'wet', tyre_age: 22, fastest_lap: '1:23.231', gap: '+4.522', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23.321', speed_trap: 334 },
-            { pos: 5, name: 'Gasly', team: 'Alpine', tyres: 'intermediate', tyre_age: 12    , fastest_lap: '1:23.231', gap: '+5.522', S1: 56.2, S2: 42.3, S3: 62.31, last_lap: '1:23.321', speed_trap: 334 },
-        ],
+        drivers: [],
+        cars: [],
+        renderer_cars: [],
     };
   },
+  watch: { 
+    participantsData: function(newVal, oldVal) {
+        for (let index = 0; index < newVal.length; index++) {
+            if(this.drivers[index] != null) {
+                this.drivers[index] = { id: newVal[index].m_driverId, name: newVal[index].m_name, team: newVal[index].m_teamId};
+            }else {
+                this.drivers[index] = { id: newVal[index].m_driverId, name: newVal[index].m_name, team: newVal[index].m_teamId};
+            }
+        }
+    },
+    lapData: function(newVal, oldVal) {
+        for (let index = 0; index < newVal.length - 2; index++) {
+            if(this.cars[index] != null) {
+                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.cars[index].team, tyres: this.cars[index].tyres, tyre_age: 0, fastest_lap: this.cars[index].fastest_lap, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS };
+                if(newVal[index].m_lastLapTimeInMS != 0 && newVal[index].m_lastLapTimeInMS < this.cars[index].fastest_lap) {
+                    this.cars[index].fastest_lap = newVal[index].m_lastLapTimeInMS;
+                }
+                if(newVal[index].m_carPosition == 1) {
+                    this.sesion_info.lap = newVal[index].m_currentLapNum;
+                }
+            }else {
+                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.drivers.team, tyres: 'soft', tyre_age: 0, fastest_lap: 1000000000, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS };
+            }
+        }
+        this.orderList();
+    },
+  },
   methods: {
+    orderList() {
+        let new_list = Array.from(this.cars);
+        new_list.sort((a, b) => a.pos - b.pos);
+        if(this.sesion_info.lap > 1) {
+            for (let index = 1; index < new_list.length - 1; index++) {
+                new_list[index].gap = new_list[index].current_lap - new_list[index - 1].current_lap;
+            }
+        }
+        this.renderer_cars = new_list;
+    },
     isPlayerCss(car_pos) {
-        if(car_pos == this.player.array_pos + 1) {
+        if(car_pos == this.car_index + 1) {
             return 'background-color: #6a040f;'
         }
     },
@@ -59,13 +94,13 @@ export default {
                 <div>TYRES</div>
                 <div>FASTEST LAP</div>
                 <div>GAP</div>
+                <div>CURRENT LAP</div>
                 <div>S1</div>
                 <div>S2</div>
-                <div>S3</div>
                 <div>LAST LAP</div>
                 <div>SPEED TRAP</div>
             </div>
-            <div v-for="car in cars" class="table_row" :style="isPlayerCss(car.pos)">
+            <div v-for="car in renderer_cars" class="table_row" :style="isPlayerCss(car.pos)">
                 <div>{{car.pos}}</div>
                 <div>{{car.name}}</div>
                 <div>{{car.team}}</div>
@@ -73,13 +108,14 @@ export default {
                     <img height="30" :src="renderTyre(car.tyres)" alt="">
                     <div class="tyre_age">{{car.tyre_age}}</div>
                 </div>
-                <div>{{car.fastest_lap}}</div>
-                <div v-if="car.pos != 1">{{car.gap}}</div>
+                <div v-if="car.fastest_lap == 1000000000">--:--</div>
+                <div v-else>{{new Date(car.fastest_lap).toISOString().slice(15, -1)}}</div>
+                <div v-if="car.pos != 1">{{new Date(car.gap).toISOString().slice(17, -1)}}</div>
                 <div v-else> --:-- </div>
-                <div>{{car.S1}}</div>
-                <div>{{car.S2}}</div>
-                <div>{{car.S3}}</div>
-                <div>{{car.last_lap}}</div>
+                <div>{{new Date(car.current_lap).toISOString().slice(15, -1)}}</div>
+                <div>{{new Date(car.S1).toISOString().slice(15, -1)}}</div>
+                <div>{{new Date(car.S2).toISOString().slice(15, -1)}}</div>
+                <div>{{new Date(car.last_lap).toISOString().slice(15, -1)}}</div>
                 <div>{{car.speed_trap}}</div>
             </div>
         </div>
