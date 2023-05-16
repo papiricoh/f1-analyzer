@@ -185,3 +185,7 @@ header > img {
     align-items: center;
     gap: 3rem;
 }
+
+.test {
+    color: #a73ed1;
+}
