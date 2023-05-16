@@ -10,7 +10,7 @@ import { ipcRenderer } from 'electron';
 export default {
   data() {
     return {
-      page: 'car',
+      page: 'standings',
       motionData: null,
       participantsData: null,
       lapData: null,

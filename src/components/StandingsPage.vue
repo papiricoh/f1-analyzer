@@ -30,7 +30,7 @@ export default {
     lapData: function(newVal, oldVal) {
         for (let index = 0; index < newVal.length - 2; index++) {
             if(this.cars[index] != null) {
-                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.cars[index].team, tyres: this.cars[index].tyres, tyre_age: this.cars[index].tyre_age, fastest_lap: this.cars[index].fastest_lap, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS };
+                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.drivers[index].team, tyres: this.cars[index].tyres, tyre_age: this.cars[index].tyre_age, fastest_lap: this.cars[index].fastest_lap, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS };
                 if(newVal[index].m_lastLapTimeInMS != 0 && newVal[index].m_lastLapTimeInMS < this.cars[index].fastest_lap) {
                     this.cars[index].fastest_lap = newVal[index].m_lastLapTimeInMS;
                 }
@@ -38,7 +38,7 @@ export default {
                     this.sesion_info.lap = newVal[index].m_currentLapNum;
                 }
             }else {
-                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.drivers.team, tyres: 16, tyre_age: 0, fastest_lap: 1000000000, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS };
+                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.drivers[index].team, tyres: 16, tyre_age: 0, fastest_lap: 1000000000, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS };
             }
         }
         this.orderList();
@@ -86,6 +86,32 @@ export default {
         }else {
             return '/tyres/soft.svg';
         }
+    },
+    renderTeam(team) {
+        switch (team) {
+            case 0:
+                return 'Mercedes';
+            case 1:
+                return 'Ferrari';
+            case 2:
+                return 'Red Bull Racing';
+            case 3:
+                return 'Williams';
+            case 4:
+                return 'Aston Martin';
+            case 5:
+                return 'Alpine';
+            case 6:
+                return 'Alpha Tauri';
+            case 7:
+                return 'Haas';
+            case 8:
+                return 'McLaren';
+            case 9:
+                return 'Alfa Romeo';
+            default:
+                return 'Unknown team';
+        }
     }
   }
 };
@@ -117,7 +143,7 @@ export default {
             <div v-for="(car, index) in renderer_cars" class="table_row" :style="isPlayerCss(index)">
                 <div>{{car.pos}}</div>
                 <div>{{car.name}}</div>
-                <div>{{car.team}}</div>
+                <div>{{renderTeam(car.team)}}</div>
                 <div>
                     <img height="30" :src="renderTyre(car.tyres)" alt="">
                     <div class="tyre_age">{{car.tyre_age}}</div>
