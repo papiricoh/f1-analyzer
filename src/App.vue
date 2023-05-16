@@ -1,5 +1,7 @@
 <script setup>
-import CarPage from './components/CarPage.vue'
+import CarPage from './components/CarPage.vue';
+import StandingsPage from './components/StandingsPage.vue';
+import Notification from './components/Notification.vue';
 </script>
 
 <script>
@@ -11,6 +13,8 @@ export default {
       page: 'car',
       motionData: null,
       car_index: 0,
+      notification_on: false,
+      notification_data: { type: 'yellow_flag', text: 'Yellow flag in sector 3: Versapen\'s Crash into turn 14'},
     };
   },
   created() {
@@ -21,6 +25,11 @@ export default {
   },
   beforeDestroy() {
     ipcRenderer.removeAllListeners('motion-data');
+  },
+  methods: {
+    closeNotification() {
+      this.notification_on = false;
+    }
   }
 };
 </script>
@@ -33,10 +42,12 @@ export default {
       <div class="header_button" @click="page = 'standings'">STANDINGS</div>
       <img height="60" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/2560px-F1.svg.png" alt="">
       <div class="header_button" @click="page = 'strategy'">STRATEGY</div>
-      <div class="header_button" @click="page = 'config'">CONFIGURATION</div>
+      <div class="header_button" @click="page = 'config'">CONFIG</div>
     </header>
     <div class="page">
       <CarPage :car_index="car_index" :telemetry="motionData" v-if="page == 'car'"></CarPage>
+      <StandingsPage v-if="page == 'standings'"></StandingsPage>
     </div>
+    <Notification @closeNotification="closeNotification" :data="notification_data" class="notification" v-if="notification_on"></Notification>
   </div>
 </template>
