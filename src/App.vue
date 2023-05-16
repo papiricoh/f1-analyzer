@@ -17,6 +17,7 @@ export default {
       car_index: 0,
       carStatus: null,
       lapPlayerIndex: 0,
+      num_cars: 0,
       
       notification_on: false,
       notification_data: { type: 'yellow_flag', text: 'Yellow flag in sector 3: Versapen\'s Crash into turn 14'},
@@ -29,6 +30,7 @@ export default {
     });
     ipcRenderer.on('participants-data', (event, data) => {
       this.participantsData = data.m_participants;
+      this.num_cars = data.m_numActiveCars;
     });
     ipcRenderer.on('lapData-data', (event, data) => {
       this.lapData = data.m_lapData;
@@ -63,7 +65,7 @@ export default {
     </header>
     <div class="page">
       <CarPage :car_index="car_index" :telemetry="motionData" v-if="page == 'car'"></CarPage>
-      <StandingsPage :carStatus="carStatus" :lapData="lapData" :car_index="lapPlayerIndex" :participantsData="participantsData" v-if="page == 'standings'"></StandingsPage>
+      <StandingsPage :num_cars="num_cars" :carStatus="carStatus" :lapData="lapData" :car_index="lapPlayerIndex" :participantsData="participantsData" v-if="page == 'standings'"></StandingsPage>
     </div>
     <Notification @closeNotification="closeNotification" :data="notification_data" class="notification" v-if="notification_on"></Notification>
   </div>

@@ -6,6 +6,7 @@ export default {
     car_index: Number,
     lapData: Array,
     carStatus: Object,
+    num_cars: Number,
   },
   data() {
     return {
@@ -15,6 +16,7 @@ export default {
         cars: [],
         renderer_cars: [],
         render_index: 0,
+        custom_team_name: "Glemdom Auto",
     };
   },
   watch: { 
@@ -28,9 +30,11 @@ export default {
         }
     },
     lapData: function(newVal, oldVal) {
-        for (let index = 0; index < newVal.length - 2; index++) {
-            if(this.cars[index] != null) {
-                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.drivers[index].team, tyre_age: this.cars[index].tyre_age, fastest_lap: this.cars[index].fastest_lap, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS, distance: newVal[index].m_lapDistance };
+        let length = newVal.length;
+        console.log(this.num_cars);
+        for (let index = 0; index < length; index++) {
+            if(this.cars[index] != null ) {
+                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.drivers[index].team, tyre_age: this.cars[index].tyre_age, fastest_lap: this.cars[index].fastest_lap, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS, distance: newVal[index].m_lapDistance, lap_num: newVal[index].m_currentLapNum };
                 if(newVal[index].m_lastLapTimeInMS != 0 && newVal[index].m_lastLapTimeInMS < this.cars[index].fastest_lap) {
                     this.cars[index].fastest_lap = newVal[index].m_lastLapTimeInMS;
                 }
@@ -38,7 +42,7 @@ export default {
                     this.sesion_info.lap = newVal[index].m_currentLapNum;
                 }
             }else {
-                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.drivers[index].team, tyre_age: 0, fastest_lap: 1000000000, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS, distance: newVal[index].m_lapDistance };
+                this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.drivers[index].team, tyre_age: 0, fastest_lap: 1000000000, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS, distance: newVal[index].m_lapDistance, lap_num: newVal[index].m_currentLapNum };
             }
         }
         this.orderList();
@@ -78,12 +82,24 @@ export default {
             }
         }
         this.fastest_lap = fastest_lap;
-        if(this.sesion_info.lap > 1) {
-            for (let index = 1; index < new_list.length; index++) {
-                new_list[index].gap = new_list[index - 1].current_lap - new_list[index].current_lap;
-            }
+        for (let index = 1; index < new_list.length; index++) {
+            new_list[index].gap = this.calculateGap(new_list[index - 1], new_list[index]);
         }
         this.renderer_cars = new_list;
+    },
+    calculateGap(car1, car2) {
+        // Convert milliseconds to seconds
+        var timeCar1 = car1.current_lap / 1000;
+        var timeCar2 = car2.current_lap / 1000;
+
+        var speedCar2 = car2.distance / timeCar2;
+
+        var additionalDistance = Math.abs(car1.distance - car2.distance);
+
+        var additionalTime = (additionalDistance / speedCar2) * 1000;
+        var gap = timeCar2 * 1000 + additionalTime;
+
+        return Math.abs(gap - car1.current_lap);
     },
     isPlayerCss(car_pos) {
         if(car_pos == this.render_index) {
@@ -127,6 +143,8 @@ export default {
                 return 'McLaren';
             case 9:
                 return 'Alfa Romeo';
+            case 104:
+                return this.custom_team_name;
             default:
                 return 'Unknown team';
         }
@@ -176,7 +194,7 @@ export default {
                 </div>
                 <div v-if="car.fastest_lap == 1000000000">--:--</div>
                 <div v-else :style="fast_lap(index)">{{new Date(car.fastest_lap).toISOString().slice(15, -1)}}</div>
-                <div v-if="car.pos != 1">{{new Date(car.gap).toISOString().slice(17, -1)}}</div>
+                <div v-if="car.pos != 1">+{{new Date(car.gap).toISOString().slice(17, -1)}}</div>
                 <div v-else> --:-- </div>
                 <div>{{new Date(car.current_lap).toISOString().slice(15, -1)}}</div>
                 <div>{{new Date(car.S1).toISOString().slice(15, -1)}}</div>
