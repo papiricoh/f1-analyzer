@@ -16,6 +16,7 @@ export default {
         cars: [],
         renderer_cars: [],
         render_index: 0,
+        my_team: true,
         custom_team_name: "Glemdom Auto",
     };
   },
@@ -30,8 +31,10 @@ export default {
         }
     },
     lapData: function(newVal, oldVal) {
-        let length = newVal.length;
-        console.log(this.num_cars);
+        let length = newVal.length - 2;
+        if(this.my_team) {
+            length = newVal.length;
+        }
         for (let index = 0; index < length; index++) {
             if(this.cars[index] != null ) {
                 this.cars[index] = { pos: newVal[index].m_carPosition, name: this.drivers[index].name, team: this.drivers[index].team, tyre_age: this.cars[index].tyre_age, fastest_lap: this.cars[index].fastest_lap, gap: 0, S1: newVal[index].m_sector1TimeInMS, S2: newVal[index].m_sector2TimeInMS, last_lap: newVal[index].m_lastLapTimeInMS, speed_trap: -1, current_lap: newVal[index].m_currentLapTimeInMS, distance: newVal[index].m_lapDistance, lap_num: newVal[index].m_currentLapNum };
