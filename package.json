@@ -21,9 +21,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build && electron-builder",
-    "preview": "vite preview",
-    "pack": "electron-builder --dir",
-    "dist": "electron-builder"
+    "dist:mac": "electron-builder --mac",
+    "dist:win": "electron-builder --win",
+    "dist:linux": "electron-builder --linux",
+    "build:all": "vue-tsc --noEmit && vite build && npm run dist:win && npm run dist:mac && npm run dist:linux",
+    "preview": "vite preview"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
