@@ -14,7 +14,7 @@ import startListening from '../f1/f1Listener'
 // │ └── index.html    > Electron-Renderer
 //
 process.env.DIST_ELECTRON = join(__dirname, '..')
-process.env.DIST = join(process.env.DIST_ELECTRON, '../dist')
+process.env.DIST = join(process.env.DIST_ELECTRON, '../Resources')
 process.env.PUBLIC = process.env.VITE_DEV_SERVER_URL
   ? join(process.env.DIST_ELECTRON, '../public')
   : process.env.DIST
@@ -39,8 +39,7 @@ let win: BrowserWindow | null = null
 // Here, you can also use other preload
 const preload = join(__dirname, '../preload/index.js')
 const url = process.env.VITE_DEV_SERVER_URL
-const path = require('path');
-const indexHtml = path.join(__dirname, 'dist', 'index.html');
+const indexHtml = join(process.env.DIST, 'index.html')
 
 async function createWindow() {
   win = new BrowserWindow({
