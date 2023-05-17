@@ -1,20 +1,38 @@
 <script>
 export default {
     props: {
-        gearboxStrokeColor: {
+        colorStatus: {
             type: String,
-            default: '#39B54A'
+            default: { gearbox: 0, MGU_K: 0, CE: 0, ES: 0, ICE: 0, MGU_H: 0, TC: 0 }
         }
     },
-    computed: {
-        gearboxStyle() {
-            return {
-            fill: 'none',
-            stroke: this.gearboxStrokeColor,
-            strokeWidth: 10,
-            strokeMiterlimit: 10
-            };
+    data() {
+        return {
+            green_color: '#39B54A',
+            green_background: '#39b54a4d',
+            yellow_color: '#b5a939',
+            yellow_background: '#b5b3394d',
+            red_color: '#b53939',
+            red_background: '#b539394d'
         }
+    },
+    methods: {
+        colorStyle(color) {
+            if( color == 0) {
+                return 'fill: ' + this.green_background + '; stroke: ' + this.green_color + '; strokeWidth: 10; strokeMiterlimit: 10'
+            }else if( color == 1) {
+                return 'fill: ' + this.yellow_background + '; stroke: ' + this.yellow_color + '; strokeWidth: 10; strokeMiterlimit: 10';
+            }
+            return 'fill: ' + this.red_background + '; stroke: ' + this.red_color + '; strokeWidth: 10; strokeMiterlimit: 10';
+        },
+        colorStylel(color) {
+            if( color == 0) {
+                return 'fill: none; stroke: ' + this.green_color + '; strokeWidth: 10; strokeMiterlimit: 10'
+            }else if( color == 1) {
+                return 'fill: none; stroke: ' + this.yellow_color + '; strokeWidth: 10; strokeMiterlimit: 10';
+            }
+            return 'fill: none; stroke: ' + this.red_color + '; strokeWidth: 10; strokeMiterlimit: 10';
+        },
     }
 };
 </script>
@@ -24,46 +42,46 @@ export default {
 	 viewBox="0 0 1160 1160" style="enable-background:new 0 0 1160 1160;" xml:space="preserve">
     
         <g id="Gearbox">
-            <polygon class="st1" points="489,920 489,954 513,954 514,1049 617,1049 617,953 641,953 641,920 	"/>
+            <polygon class="st1" :style="colorStyle(colorStatus.gearbox)" points="489,920 489,954 513,954 514,1049 617,1049 617,953 641,953 641,920 	"/>
+            <line class="st0" :style="colorStylel(colorStatus.gearbox)" x1="512.5" y1="953.5" x2="616.5" y2="952.5"/>
         </g>
         <g id="MGU-K">
-            <path class="st1" d="M207.5,295.5c0,0-70,14-86,60s-8,75-8,75l43,248c0,0,6,17,14,24s20,13,20,13h101c0,0,7-2,14-9s7-37,7-37
+            <path class="st1" :style="colorStyle(colorStatus.MGU_K)" d="M207.5,295.5c0,0-70,14-86,60s-8,75-8,75l43,248c0,0,6,17,14,24s20,13,20,13h101c0,0,7-2,14-9s7-37,7-37
                 L265,670c0,0-12-2-14-6s-4-14-4-14L207.5,295.5z"/>
         </g>
-        <g id="CE">
-            <path class="st1" d="M220,279l134,2c0,0,7,1,10,5s3,10,3,10l1,359c0,0-1,7-5,11s-9,1-9,1l-41,3h-48c0,0-8,1-14-6s-4-14-4-14
-                l-39-354c0,0-2-10,1-14S220,279,220,279z"/>
-            <path class="st1" d="M911.4,279.34l-134,2c0,0-7,1-10,5s-3,10-3,10l-1,359c0,0,1,7,5,11s9,1,9,1l41,3h48c0,0,8,1,14-6s4-14,4-14
-                l39-354c0,0,2-10-1-14S911.4,279.34,911.4,279.34z"/>
-        </g>
         <g id="ES">
-            <path class="st1" d="M396,236v-77c0,0,4-11,13-20s19-9,19-9h275c0,0,7,1,19,11s11,17,11,17l0.94,79.75L620,228c0,0-4-49-55-49
-                s-54,49-54,49L396,236z"/>
-            <path class="st1" d="M342,241l-1,41l13-1c0,0,8,1,10,5s3,10,3,10l1,359c0,0-2,9-5,11s-21,3-21,3v49l121,12c0,0-42-58-48-72
-                s-19-44-19-44l-2-314c0,0,1-11,4-14s12-4,12-4l101-3v-51L342,241z"/>
-            <path class="st1" d="M789.4,241.34l1,41l-13-1c0,0-8,1-10,5s-3,10-3,10l-1,359c0,0,2,9,5,11s21,3,21,3v49l-121,12c0,0,42-58,48-72
-                s19-44,19-44l2-314c0,0-1-11-4-14s-12-4-12-4l-101-3v-51L789.4,241.34z"/>
+            <path class="st1" :style="colorStyle(colorStatus.ES)" d="M396,236v-77c0,0,4-11,13-20s19-9,19-9h275c0,0,7,1,19,11s11,17,11,17l0.94,79.75L620,228c0,0-4-49-55-49
+            s-54,49-54,49L396,236z"/>
+            <path class="st1" :style="colorStyle(colorStatus.ES)" d="M342,241l-1,41l13-1c0,0,8,1,10,5s3,10,3,10l1,359c0,0-2,9-5,11s-21,3-21,3v49l121,12c0,0-42-58-48-72
+            s-19-44-19-44l-2-314c0,0,1-11,4-14s12-4,12-4l101-3v-51L342,241z"/>
+            <path class="st1" :style="colorStyle(colorStatus.ES)" d="M789.4,241.34l1,41l-13-1c0,0-8,1-10,5s-3,10-3,10l-1,359c0,0,2,9,5,11s21,3,21,3v49l-121,12c0,0,42-58,48-72
+            s19-44,19-44l2-314c0,0-1-11-4-14s-12-4-12-4l-101-3v-51L789.4,241.34z"/>
         </g>
         <g id="ICE">
-            <path class="st1" d="M476,759c0,0-2-15-4-20s-9-9-9-9s-66-89-67-116s-2-314-2-314s0-9,4-14s12-4,12-4l101-3v-51c0,0,3-49,54-49
-                s55,49,55,49v51l101,3c0,0,9,0,12,4s4,13,4,13l-2,315c0,0-11.77,34.85-21.89,50.92C703,681,668,730,668,730s-9,5-10,9s-4,19-4,19
-                L476,759z"/>
-            <path class="st0" d="M396.74,289.08c0,0,36.76,13.42,47.76,29.42s14,38,14,38l1,226c0,0,12,45,29,72s23,51,23,51s4,15,5,27
-                s1,25,1,25"/>
-            <path class="st0" d="M513.5,276.5l16,296c0,0,7,25,34,25s37-26,37-26l16-293"/>
-            <path class="st0" d="M733.26,289.58c0,0-36.76,13.42-47.76,29.42s-14,38-14,38l-1,226c0,0-12,45-29,72s-23,51-23,51s-4,15-5,27
-                s-1,25-1,25"/>
+            <path class="st1" :style="colorStyle(colorStatus.ICE)" d="M476,759c0,0-2-15-4-20s-9-9-9-9s-66-89-67-116s-2-314-2-314s0-9,4-14s12-4,12-4l101-3v-51c0,0,3-49,54-49
+            s55,49,55,49v51l101,3c0,0,9,0,12,4s4,13,4,13l-2,315c0,0-11.77,34.85-21.89,50.92C703,681,668,730,668,730s-9,5-10,9s-4,19-4,19
+            L476,759z"/>
+            <path class="st0" :style="colorStylel(colorStatus.ICE)" d="M396.74,289.08c0,0,36.76,13.42,47.76,29.42s14,38,14,38l1,226c0,0,12,45,29,72s23,51,23,51s4,15,5,27
+            s1,25,1,25"/>
+            <path class="st0" :style="colorStylel(colorStatus.ICE)" d="M513.5,276.5l16,296c0,0,7,25,34,25s37-26,37-26l16-293"/>
+            <path class="st0" :style="colorStylel(colorStatus.ICE)" d="M733.26,289.58c0,0-36.76,13.42-47.76,29.42s-14,38-14,38l-1,226c0,0-12,45-29,72s-23,51-23,51s-4,15-5,27
+            s-1,25-1,25"/>
         </g>
         <g id="MGU-H">
-            <path class="st1" d="M922,302c0,0,49,9,66,36s22,54,22,54s-1,85-18,182s-43,189-43,189s-14,47-73,79s-136,22-136,22v-61
-                c0,0,71,6,96-8s51-42,51-42s-29-10-41-35s-13.87-46.58-13.87-46.58L866,670c0,0,7,2,14-6s4-14,4-14L922,302z"/>
+            <path class="st1" :style="colorStyle(colorStatus.MGU_H)" d="M922,302c0,0,49,9,66,36s22,54,22,54s-1,85-18,182s-43,189-43,189s-14,47-73,79s-136,22-136,22v-61
+            c0,0,71,6,96-8s51-42,51-42s-29-10-41-35s-13.87-46.58-13.87-46.58L866,670c0,0,7,2,14-6s4-14,4-14L922,302z"/>
         </g>
         <g id="TC">
-            <path class="st1" d="M456,778v24c0,0-38-4-38,32s38,32,38,32l1,21h218l1-25h36l-1-59h-33v-25H456z"/>
-            <path class="st0" d="M456,866"/>
-            <path class="st0" d="M458,805l172,1c0,0,20,3,20,27s-20,25-20,25l-173,1l-2.3,7.58"/>
-            <line class="st0" x1="675.5" y1="801.5" x2="675.5" y2="862.5"/>
-            <line class="st0" x1="512.5" y1="953.5" x2="616.5" y2="952.5"/>
+            <path class="st1" :style="colorStyle(colorStatus.TC)" d="M456,778v24c0,0-38-4-38,32s38,32,38,32l1,21h218l1-25h36l-1-59h-33v-25H456z"/>
+            <path class="st0" :style="colorStylel(colorStatus.TC)" d="M456,866"/>
+            <path class="st0" :style="colorStylel(colorStatus.TC)" d="M458,805l172,1c0,0,20,3,20,27s-20,25-20,25l-173,1l-2.3,7.58"/>
+            <line class="st0" :style="colorStylel(colorStatus.TC)" x1="675.5" y1="801.5" x2="675.5" y2="862.5"/>
+        </g>
+        <g id="CE">
+            <path class="st1" :style="colorStyle(colorStatus.CE)" d="M220,279l134,2c0,0,7,1,10,5s3,10,3,10l1,359c0,0-1,7-5,11s-9,1-9,1l-41,3h-48c0,0-8,1-14-6s-4-14-4-14
+                l-39-354c0,0-2-10,1-14S220,279,220,279z"/>
+            <path class="st1" :style="colorStyle(colorStatus.CE)" d="M911.4,279.34l-134,2c0,0-7,1-10,5s-3,10-3,10l-1,359c0,0,1,7,5,11s9,1,9,1l41,3h48c0,0,8,1,14-6s4-14,4-14
+                l39-354c0,0,2-10-1-14S911.4,279.34,911.4,279.34z"/>
         </g>
     </svg>
 </template>
