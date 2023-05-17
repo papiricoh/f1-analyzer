@@ -1,3 +1,24 @@
+<script>
+export default {
+    props: {
+    gearboxStrokeColor: {
+        type: String,
+        default: '#39B54A'
+    }
+    },
+    computed: {
+    gearboxStyle() {
+        return {
+        fill: 'none',
+        stroke: this.gearboxStrokeColor,
+        strokeWidth: 10,
+        strokeMiterlimit: 10
+        };
+    }
+    }
+};
+</script>
+
 <template>
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 	 viewBox="0 0 1160 1160" style="enable-background:new 0 0 1160 1160;" xml:space="preserve">
@@ -46,27 +67,6 @@
         </g>
     </svg>
 </template>
-
-<script>
-export default {
-    props: {
-    gearboxStrokeColor: {
-        type: String,
-        default: '#39B54A'
-    }
-    },
-    computed: {
-    gearboxStyle() {
-        return {
-        fill: 'none',
-        stroke: this.gearboxStrokeColor,
-        strokeWidth: 10,
-        strokeMiterlimit: 10
-        };
-    }
-    }
-};
-</script>
 
 <style type="text/css" scoped>
 svg {
