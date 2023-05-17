@@ -19,6 +19,10 @@ Future planned features include:
 
 We welcome contributions! Please feel free to fork the repository and submit pull requests. For major changes, open an issue first to discuss what you would like to change.
 
+## Showcase
+
+![Showcase](./showdown.png)
+
 ## License
 
 This project is licensed under the MIT License.
