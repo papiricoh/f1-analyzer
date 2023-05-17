@@ -27,6 +27,7 @@ export default {
         this.car.rpm = newVal[this.car_index].m_engineRPM;
         this.car.gear = newVal[this.car_index].m_gear;
         this.car.engTemp = newVal[this.car_index].m_engineTemperature;
+        this.car.speed = newVal[this.car_index].m_speed;
     },
     car_damage: function(newVal, oldVal) {
         let player_engine = newVal[this.car_index];
@@ -119,6 +120,7 @@ export default {
           <div>{{ car.engTemp }}º</div>
           <font-awesome-icon v-if="car.engTemp > 120" style="height: 2rem; color: #b5a939;" icon="fa-solid fa-warning" />
         </div>
+        <div style="text-align: center;">{{ car.speed }} km/h</div>
       </div>
     </div>
     <div class="car_container">
