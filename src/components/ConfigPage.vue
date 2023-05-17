@@ -11,11 +11,13 @@ export default {
     data() {
         return {
             my_team_on: false,
+            mph: false,
             my_team_name: "",
         };
     },
     mounted() {
         this.my_team_on = this.config.my_team.allowed
+        this.mph = this.config.mph
     },
     methods: {
         updateConfig(new_config) {
@@ -33,6 +35,7 @@ export default {
             }
             config.my_team.custom_team_name = my_team_name_p;
             config.my_team.allowed = this.my_team_on;
+            config.mph = this.mph;
             this.updateConfig(config);
         },
         pageStandings() {
@@ -55,6 +58,11 @@ export default {
             <div class="config_body_row">
                 <div class="config_name">My Team name:</div>
                 <input type="text" :placeholder="config.my_team.custom_team_name" v-model="my_team_name">
+            </div>
+            <div class="config_body_row">
+                <div class="config_name">Milles per hour mode (MPH):</div>
+                <div class="button" @click="mph = false" v-if="mph" >ON</div>
+                <div class="button" @click="mph = true" v-else>OFF</div>
             </div>
         </div>
         <div @click="submit(), pageStandings()" class="submit_button">

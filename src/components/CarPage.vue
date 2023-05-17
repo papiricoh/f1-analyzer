@@ -15,6 +15,9 @@ export default {
     car_damage: {
       type: Array,
     },
+    mph: {
+      type: Boolean,
+    },
   },
   data() {
     return {
@@ -120,7 +123,8 @@ export default {
           <div>{{ car.engTemp }}º</div>
           <font-awesome-icon v-if="car.engTemp > 120" style="height: 2rem; color: #b5a939;" icon="fa-solid fa-warning" />
         </div>
-        <div style="text-align: center;">{{ car.speed }} km/h</div>
+        <div v-if="mph" style="text-align: center;">{{ (car.speed * 0.622).toFixed(0) }} mph</div>
+        <div v-else style="text-align: center;">{{ car.speed }} km/h</div>
       </div>
     </div>
     <div class="car_container">

@@ -22,6 +22,7 @@ export default {
       car_damage: null,
       config: {
         my_team: { custom_team_name: "Custom Team", allowed: false },
+        mph: false,
       },
       
       notification_on: false,
@@ -78,7 +79,7 @@ export default {
       <div class="header_button" @click="page = 'config'">CONFIG</div>
     </header>
     <div class="page">
-      <CarPage :car_damage="car_damage" :car_index="car_index" :telemetry="motionData" v-if="page == 'car'"></CarPage>
+      <CarPage :mph="config.mph" :car_damage="car_damage" :car_index="car_index" :telemetry="motionData" v-if="page == 'car'"></CarPage>
       <StandingsPage :my_team="config.my_team" :num_cars="num_cars" :carStatus="carStatus" :lapData="lapData" :car_index="lapPlayerIndex" :participantsData="participantsData" v-if="page == 'standings'"></StandingsPage>
       <ConfigPage @pageStandings="pageStandings" @updateConfig="updateConfig" :config="config" v-if="page == 'config'"></ConfigPage>
     </div>
