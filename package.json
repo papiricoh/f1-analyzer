@@ -51,12 +51,17 @@
     "win": {
       "target": "squirrel",
       "icon": "public/F1.ico"
-    }
-  },
-  "files": [
-    "*.js",
-    "build",
-    "node_modules",
-    "dist"
-  ]
+    },
+    "directories": {
+      "output": "dist"
+    },
+    "files": [
+      "dist/**/*",
+      "node_modules/**/*",
+      "public/**/*",
+      "src/**/*",
+      "package.json",
+      "dist-electron/**/*"
+    ]
+  }
 }
