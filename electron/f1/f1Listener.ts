@@ -18,6 +18,9 @@ function startListening(win) {
   f122.on('carStatus', function(data) {
     win.webContents.send('carStatus-data', data);
   });
+  f122.on('carDamage', function(data) {
+    win.webContents.send('carDamage-data', data);
+  });
 }
 
 export default startListening;

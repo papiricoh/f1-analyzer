@@ -6,20 +6,32 @@ import EngineItem from './EngineItem.vue';
 
 export default {
   props: {
-    telemetry: {
-      type: Array,
-      required: true
-    },
     car_index: {
       type: Number,
-      required: true
-    }
+    },
+    telemetry: {
+      type: Array,
+    },
+    car_damage: {
+      type: Array,
+    },
   },
   data() {
     return {
-      car: { speed: 230.3, rpm: 10532, gear: 5},
-      engine: { gearbox: 23.2, MGU_K: 62.2, CE: 83.3, ES: 32.2, ICE: 54.3, MGU_H: 2.2, TC: 82.6 }
+      car: { speed: 230.3, rpm: 10532, gear: 5, engTemp: 20},
+      engine: { gearbox: 50, MGU_K: 50, CE: 50, ES: 50, ICE: 50, MGU_H: 50, TC: 50 }
     };
+  },
+  watch: { 
+    telemetry: function(newVal, oldVal) {
+        this.car.rpm = newVal[this.car_index].m_engineRPM;
+        this.car.gear = newVal[this.car_index].m_gear;
+        this.car.engTemp = newVal[this.car_index].m_engineTemperature;
+    },
+    car_damage: function(newVal, oldVal) {
+        let player_engine = newVal[this.car_index];
+        this.engine = { gearbox: player_engine.m_gearBoxDamage, MGU_K: player_engine.m_engineMGUKWear, CE: player_engine.m_engineCEWear, ES: player_engine.m_engineESWear, ICE: player_engine.m_engineICEWear, MGU_H: player_engine.m_engineMGUHWear, TC: player_engine.m_engineTCWear }
+    },
   },
   methods: {
     checkColor(percentage) {
@@ -68,13 +80,44 @@ export default {
       <div class="engine_container">
         <EngineItem :colorStatus="generateColors"></EngineItem>
         <div class="engine_labels">
-          <div class="engine_label" :style="checkColorCss(engine.MGU_K)">MGU-K: {{ engine.MGU_K }}%</div>
-          <div class="engine_label" :style="checkColorCss(engine.ES)">ES: {{ engine.ES }}%</div>
-          <div class="engine_label" :style="checkColorCss(engine.CE)">CE: {{ engine.CE }}%</div>
-          <div class="engine_label" :style="checkColorCss(engine.ICE)">ICE: {{ engine.ICE }}%</div>
-          <div class="engine_label" :style="checkColorCss(engine.MGU_H)">MGU-H: {{ engine.MGU_H }}%</div>
-          <div class="engine_label" :style="checkColorCss(engine.TC)">TC: {{ engine.TC }}%</div>
-          <div class="engine_label" :style="checkColorCss(engine.gearbox)">Gearbox: {{ engine.gearbox }}%</div>
+          <div class="engine_label" :style="checkColorCss(engine.MGU_K)">MGU-K: {{ engine.MGU_K }}% <font-awesome-icon v-if="engine.MGU_K >= 90" style="height: 1.4rem; color: #b53939;" icon="fa-solid fa-warning" /></div>
+          <div class="engine_label" :style="checkColorCss(engine.ES)">ES: {{ engine.ES }}% <font-awesome-icon v-if="engine.ES >= 90" style="height: 1.4rem; color: #b53939;" icon="fa-solid fa-warning" /></div>
+          <div class="engine_label" :style="checkColorCss(engine.CE)">CE: {{ engine.CE }}% <font-awesome-icon v-if="engine.CE >= 90" style="height: 1.4rem; color: #b53939;" icon="fa-solid fa-warning" /></div>
+          <div class="engine_label" :style="checkColorCss(engine.ICE)">ICE: {{ engine.ICE }}% <font-awesome-icon v-if="engine.ICE >= 90" style="height: 1.4rem; color: #b53939;" icon="fa-solid fa-warning" /></div>
+          <div class="engine_label" :style="checkColorCss(engine.MGU_H)">MGU-H: {{ engine.MGU_H }}% <font-awesome-icon v-if="engine.MGU_H >= 90" style="height: 1.4rem; color: #b53939;" icon="fa-solid fa-warning" /></div>
+          <div class="engine_label" :style="checkColorCss(engine.TC)">TC: {{ engine.TC }}% <font-awesome-icon v-if="engine.TC >= 90" style="height: 1.4rem; color: #b53939;" icon="fa-solid fa-warning" /></div>
+          <div class="engine_label" :style="checkColorCss(engine.gearbox)">Gearbox: {{ engine.gearbox }}% <font-awesome-icon v-if="engine.gearbox >= 90" style="height: 1.4rem; color: #b53939;" icon="fa-solid fa-warning" /></div>
+        </div>
+      </div>
+      <div class="car_data"> <!-- Disable to work in other parts -->
+        <div class="gear_container">
+          <div v-if="car.gear == 1" class="gear_selected">1</div>
+          <div v-else>1</div>
+          <div v-if="car.gear == 2" class="gear_selected">2</div>
+          <div v-else>2</div>
+          <div v-if="car.gear == 3" class="gear_selected">3</div>
+          <div v-else>3</div>
+          <div v-if="car.gear == 4" class="gear_selected">4</div>
+          <div v-else>4</div>
+          <div v-if="car.gear == 5" class="gear_selected">5</div>
+          <div v-else>5</div>
+          <div v-if="car.gear == 6" class="gear_selected">6</div>
+          <div v-else>6</div>
+          <div v-if="car.gear == 7" class="gear_selected">7</div>
+          <div v-else>7</div>
+          <div v-if="car.gear == 8" class="gear_selected">8</div>
+          <div v-else>8</div>
+        </div>
+        <div class="rpm_container">
+          <div class="progressBar_container">
+            <div class="progressBar" :style="'width: ' + (( car.rpm / 13500 ) * 100).toFixed(0) + '%;'"></div>
+          </div>
+          <div class="rpm_display" style="text-align: center;"> {{ car.rpm }} rpm</div>
+        </div>
+        <div class="engineTemp_container">
+          <font-awesome-icon style="height: 2rem;" icon="fa-solid fa-temperature-2" />
+          <div>{{ car.engTemp }}º</div>
+          <font-awesome-icon v-if="car.engTemp > 120" style="height: 2rem; color: #b5a939;" icon="fa-solid fa-warning" />
         </div>
       </div>
     </div>
@@ -86,7 +129,45 @@ export default {
 
 <style scoped>
 .engine_label {
-  
+  display: flex;
+  gap: .6rem;
+  align-items: center;
+}
+.engineTemp_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .2rem;
+}
+.gear_selected {
+  color: #d30202;
+}
+.gear_container {
+  display: flex;
+  gap: .4rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.progressBar_container, .progressBar {
+  background-color: #370617;
+  height: 1rem;
+  border-radius: .3rem;
+}
+.progressBar {
+  background-color: #990202;
+}
+.rpm_container {
+  display: flex;
+  align-items: stretch;
+  gap: .2rem;
+  flex-direction: column;
+}
+.car_data {
+  display: flex;
+  flex-direction: column;
+  width: 10rem;
+  gap: 1rem;
 }
 .car_engine_container {
   flex-direction: row;

@@ -19,6 +19,7 @@ export default {
       carStatus: null,
       lapPlayerIndex: 0,
       num_cars: 0,
+      car_damage: null,
       config: {
         my_team: { custom_team_name: "Custom Team", allowed: false },
       },
@@ -42,6 +43,9 @@ export default {
     });
     ipcRenderer.on('carStatus-data', (event, data) => {
       this.carStatus = data;
+    });
+    ipcRenderer.on('carDamage-data', (event, data) => {
+      this.car_damage = data.m_carDamageData;
     });
   },
   beforeDestroy() {
@@ -74,7 +78,7 @@ export default {
       <div class="header_button" @click="page = 'config'">CONFIG</div>
     </header>
     <div class="page">
-      <CarPage :car_index="car_index" :telemetry="motionData" v-if="page == 'car'"></CarPage>
+      <CarPage :car_damage="car_damage" :car_index="car_index" :telemetry="motionData" v-if="page == 'car'"></CarPage>
       <StandingsPage :my_team="config.my_team" :num_cars="num_cars" :carStatus="carStatus" :lapData="lapData" :car_index="lapPlayerIndex" :participantsData="participantsData" v-if="page == 'standings'"></StandingsPage>
       <ConfigPage @pageStandings="pageStandings" @updateConfig="updateConfig" :config="config" v-if="page == 'config'"></ConfigPage>
     </div>
