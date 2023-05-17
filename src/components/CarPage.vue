@@ -1,4 +1,5 @@
 <script setup>
+import EngineItem from './EngineItem.vue';
 </script>
 
 <script>
@@ -33,7 +34,7 @@ export default {
 <template>
   <div class="car_grid">
     <div class="car_container">
-      <img height="300" src="/engine.svg" alt="">
+      <EngineItem></EngineItem>
     </div>
     <div class="car_container">
       <img height="300" src="/car.svg" alt="">
