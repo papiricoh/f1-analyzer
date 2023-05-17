@@ -10,7 +10,6 @@ export default {
   },
   methods: {
     closeNotification() {
-        //TODO SEND TO APP.vue -> CLOSE NOTIFICATION
         this.$emit('closeNotification');
     }
   }

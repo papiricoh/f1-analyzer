@@ -2,6 +2,7 @@
 import CarPage from './components/CarPage.vue';
 import StandingsPage from './components/StandingsPage.vue';
 import Notification from './components/Notification.vue';
+import ConfigPage from './components/ConfigPage.vue';
 </script>
 
 <script>
@@ -18,6 +19,9 @@ export default {
       carStatus: null,
       lapPlayerIndex: 0,
       num_cars: 0,
+      config: {
+        my_team: { custom_team_name: "Custom Team", allowed: false },
+      },
       
       notification_on: false,
       notification_data: { type: 'yellow_flag', text: 'Yellow flag in sector 3: Versapen\'s Crash into turn 14'},
@@ -48,6 +52,12 @@ export default {
   methods: {
     closeNotification() {
       this.notification_on = false;
+    },
+    updateConfig(config) {
+      this.config = config;
+    },
+    pageStandings() {
+      this.page = 'standings';
     }
   }
 };
@@ -65,7 +75,8 @@ export default {
     </header>
     <div class="page">
       <CarPage :car_index="car_index" :telemetry="motionData" v-if="page == 'car'"></CarPage>
-      <StandingsPage :num_cars="num_cars" :carStatus="carStatus" :lapData="lapData" :car_index="lapPlayerIndex" :participantsData="participantsData" v-if="page == 'standings'"></StandingsPage>
+      <StandingsPage :my_team="config.my_team" :num_cars="num_cars" :carStatus="carStatus" :lapData="lapData" :car_index="lapPlayerIndex" :participantsData="participantsData" v-if="page == 'standings'"></StandingsPage>
+      <ConfigPage @pageStandings="pageStandings" @updateConfig="updateConfig" :config="config" v-if="page == 'config'"></ConfigPage>
     </div>
     <Notification @closeNotification="closeNotification" :data="notification_data" class="notification" v-if="notification_on"></Notification>
   </div>

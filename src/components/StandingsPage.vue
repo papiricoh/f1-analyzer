@@ -7,6 +7,7 @@ export default {
     lapData: Array,
     carStatus: Object,
     num_cars: Number,
+    my_team: Object
   },
   data() {
     return {
@@ -16,8 +17,8 @@ export default {
         cars: [],
         renderer_cars: [],
         render_index: 0,
-        my_team: true,
-        custom_team_name: "Glemdom Auto",
+        
+        
     };
   },
   watch: { 
@@ -32,7 +33,7 @@ export default {
     },
     lapData: function(newVal, oldVal) {
         let length = newVal.length - 2;
-        if(this.my_team) {
+        if(this.my_team.allowed) {
             length = newVal.length;
         }
         for (let index = 0; index < length; index++) {
@@ -147,10 +148,10 @@ export default {
             case 9:
                 return 'Alfa Romeo';
             case 104:
-                return this.custom_team_name;
+                return this.my_team.custom_team_name;
             default:
-                if(this.my_team) {
-                    return this.custom_team_name;
+                if(this.my_team.allowed) {
+                    return this.my_team.custom_team_name;
                 }
                 return 'Unknown team';
         }
