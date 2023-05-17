@@ -33,7 +33,7 @@ export default {
 <template>
   <div class="car_grid">
     <div class="car_container">
-
+      <img height="300" src="/engine.svg" alt="">
     </div>
     <div class="car_container">
       <img height="300" src="/car.svg" alt="">

@@ -96,10 +96,6 @@ header > img {
     color: white;
 }
 
-.car_container > img {
-    filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(87deg) brightness(119%) contrast(119%);
-}
-
 .standings_table_container {
     min-height: 12rem;
     background-color: #03071e;
