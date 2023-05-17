@@ -149,6 +149,9 @@ export default {
             case 104:
                 return this.custom_team_name;
             default:
+                if(this.my_team) {
+                    return this.custom_team_name;
+                }
                 return 'Unknown team';
         }
     },
