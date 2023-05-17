@@ -1,9 +1,9 @@
 {
-  "name": "electron-vue-vite",
-  "version": "2.0.0",
+  "name": "f1-analyzer",
+  "version": "1.0.0",
   "main": "dist-electron/main/index.js",
-  "description": "Really simple Electron + Vue + Vite boilerplate.",
-  "author": "草鞋没号 <308487730@qq.com>",
+  "description": "",
+  "author": "papiricoh",
   "license": "MIT",
   "private": true,
   "keywords": [
@@ -21,7 +21,9 @@
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build && electron-builder",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.1.0",
@@ -42,5 +44,16 @@
     "@fortawesome/vue-fontawesome": "^3.0.3",
     "f1-22-udp": "^2.1.1",
     "vuex": "^4.1.0"
-  }
+  },
+  "build": {
+    "appId": "your.id",
+    "mac": {
+      "category": "your.app.category.type"
+    }
+  },
+  "files": [
+    "*.js",
+    "build",
+    "node_modules"
+  ]
 }
