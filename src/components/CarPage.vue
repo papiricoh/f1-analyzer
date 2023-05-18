@@ -182,7 +182,8 @@ export default {
 }
 .car_status_row {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 18rem;
   align-items: center;
 }
 
@@ -193,9 +194,10 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: stretch;
-  gap: 14rem;
+  gap: 21rem;
   position: relative;
-  top: 20px;
+  top: 32px;
+  right: 10px;
 }
 .big_container {
   grid-column: 2/3;
@@ -206,7 +208,8 @@ export default {
   gap: 0;
 }
 .big_container > * {
-  grid-area: 1/2;
+  grid-column: 1/2;
+  grid-row: 1/2;
 }
 .engine_label {
   display: flex;
