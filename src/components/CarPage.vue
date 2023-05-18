@@ -24,7 +24,7 @@ export default {
     return {
       car: { speed: 230.3, rpm: 10532, gear: 5, engTemp: 20},
       engine: { gearbox: 50, MGU_K: 50, CE: 50, ES: 50, ICE: 50, MGU_H: 50, TC: 50 },
-      parts: { front_wing: { left: 0, right: 0 }, floor: 90, diffuser: 0, sidepod: 0, engine: 0, rear_wing: 0, wheels: { top_left: 0, top_right: 50, bottom_left: 50, bottom_right: 0 }, brakes: { top_left: 0, top_right: 50, bottom_left: 0, bottom_right: 0 } },
+      parts: { front_wing: { left: 50, right: 50 }, floor: 50, diffuser: 50, sidepod: 50, engine: 50, rear_wing: 50, wheels: { top_left: 50, top_right: 50, bottom_left: 50, bottom_right: 50 }, brakes: { top_left: 50, top_right: 50, bottom_left: 50, bottom_right: 50 } },
       tyres_wear: { top_left: 0, top_right: 50, bottom_left: 0, bottom_right: 0 }
     };
   },
@@ -138,11 +138,20 @@ export default {
     </div>
     <div class="car_container big_container">
       <CarItem :colorStatus="generateCarColors"></CarItem>
+      <div class="car_status_container">
+
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.car_status_container {
+  background-color: black;
+  position: absolute;
+  height: 52rem;
+  width: 10rem;
+}
 .big_container {
   grid-column: 2/3;
   grid-row: 1/3;
