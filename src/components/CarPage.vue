@@ -1,5 +1,6 @@
 <script setup>
 import EngineItem from './EngineItem.vue';
+import CarItem from './CarItem.vue';
 </script>
 
 <script>
@@ -127,13 +128,17 @@ export default {
         <div v-else style="text-align: center;">{{ car.speed }} km/h</div>
       </div>
     </div>
-    <div class="car_container">
-      <img height="300" src="/car.svg" alt="">
+    <div class="car_container big_container">
+      <CarItem></CarItem>
     </div>
   </div>
 </template>
 
 <style scoped>
+.big_container {
+  grid-column: 2/3;
+  grid-row: 1/3;
+}
 .engine_label {
   display: flex;
   gap: .6rem;
