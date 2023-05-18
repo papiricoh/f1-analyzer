@@ -177,10 +177,16 @@ export default {
         </div>
       </div>
     </div>
+    <div class="car_container last_container">
+
+    </div>
   </div>
 </template>
 
 <style scoped>
+.last_container {
+  height: 26rem;
+}
 .wheel_container > div {
   display: flex;
   gap: .6rem;
