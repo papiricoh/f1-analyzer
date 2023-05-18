@@ -139,22 +139,74 @@ export default {
     <div class="car_container big_container">
       <CarItem :colorStatus="generateCarColors"></CarItem>
       <div class="car_status_container">
-
+        <div class="car_status_row">
+          <div class="wheel_container wheel_left">
+            <div>72º - O</div>
+            <div>100º - S</div>
+            <div>{{tyres_wear.top_left}}% - W</div>
+          </div>
+          <div class="wheel_container">
+            <div>O - 72º</div>
+            <div>S - 100º</div>
+            <div>W - {{tyres_wear.top_right}}%</div>
+          </div>
+        </div>
+        <div class="car_status_row">
+          <div class="wheel_container wheel_left">
+            <div>72º - O</div>
+            <div>100º - S</div>
+            <div>{{tyres_wear.bottom_left}}% - W</div>
+          </div>
+          <div class="wheel_container">
+            <div>O - 72º</div>
+            <div>S - 100º</div>
+            <div>W - {{tyres_wear.bottom_right}}%</div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.wheel_container {
+  height: 8rem;
+  width: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .3rem;
+}
+.wheel_left {
+  align-items: flex-end;
+}
+.car_status_row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .car_status_container {
-  background-color: black;
-  position: absolute;
-  height: 52rem;
-  width: 10rem;
+  background-color: transparent;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  gap: 14rem;
+  position: relative;
+  top: 20px;
 }
 .big_container {
   grid-column: 2/3;
   grid-row: 1/3;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  gap: 0;
+}
+.big_container > * {
+  grid-area: 1/2;
 }
 .engine_label {
   display: flex;
