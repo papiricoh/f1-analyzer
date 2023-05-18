@@ -145,20 +145,20 @@ export default {
       </div>
     </div>
     <div class="car_container big_container">
-      <CarItem :colorStatus="generateCarColors"></CarItem>
+      <CarItem :brakesTemp="wheels_temp.brakesTemp" :innerTemp="wheels_temp.innerTemp" :colorStatus="generateCarColors"></CarItem>
       <div class="car_status_container">
         <div class="car_status_row">
           <div class="wheel_container wheel_left">
             <div>{{ wheels_temp.innerTemp.top_left }}º - O</div>
             <div>{{ wheels_temp.surfaceTemp.top_left }}º - S</div>
             <div>{{ wheels_temp.brakesTemp.top_left }}º - B</div>
-            <div><font-awesome-icon v-if="tyres_wear.top_left > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" />{{tyres_wear.top_left}}% - W</div>
+            <div><font-awesome-icon v-if="tyres_wear.top_left > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" />{{tyres_wear.top_left.toFixed(1)}}% - W</div>
           </div>
           <div class="wheel_container">
             <div>O - {{ wheels_temp.innerTemp.top_right }}º</div>
             <div>S - {{ wheels_temp.surfaceTemp.top_right }}º</div>
             <div>B - {{ wheels_temp.brakesTemp.top_right }}º</div>
-            <div>W - {{tyres_wear.top_right}}%<font-awesome-icon v-if="tyres_wear.top_right > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" /></div>
+            <div>W - {{tyres_wear.top_right.toFixed(1)}}%<font-awesome-icon v-if="tyres_wear.top_right > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" /></div>
           </div>
         </div>
         <div class="car_status_row">
@@ -166,13 +166,13 @@ export default {
             <div>{{ wheels_temp.innerTemp.bottom_left }}º - O</div>
             <div>{{ wheels_temp.surfaceTemp.bottom_left }}º - S</div>
             <div>{{ wheels_temp.brakesTemp.bottom_left }}º - B</div>
-            <div><font-awesome-icon v-if="tyres_wear.bottom_left > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" />{{tyres_wear.bottom_left}}% - W</div>
+            <div><font-awesome-icon v-if="tyres_wear.bottom_left > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" />{{tyres_wear.bottom_left.toFixed(1)}}% - W</div>
           </div>
           <div class="wheel_container">
             <div>O - {{ wheels_temp.innerTemp.bottom_right }}º</div>
             <div>S - {{ wheels_temp.surfaceTemp.bottom_right }}º</div>
             <div>B - {{ wheels_temp.brakesTemp.bottom_right }}º</div>
-            <div>W - {{tyres_wear.bottom_right}}% <font-awesome-icon v-if="tyres_wear.bottom_right > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" /></div>
+            <div>W - {{tyres_wear.bottom_right.toFixed(1)}}% <font-awesome-icon v-if="tyres_wear.bottom_right > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" /></div>
           </div>
         </div>
       </div>
