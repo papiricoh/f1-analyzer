@@ -25,7 +25,7 @@ export default {
       car: { speed: 230.3, rpm: 10532, gear: 5, engTemp: 20},
       engine: { gearbox: 50, MGU_K: 50, CE: 50, ES: 50, ICE: 50, MGU_H: 50, TC: 50 },
       parts: { front_wing: { left: 50, right: 50 }, floor: 50, diffuser: 50, sidepod: 50, engine: 50, rear_wing: 50, wheels: { top_left: 50, top_right: 50, bottom_left: 50, bottom_right: 50 }, brakes: { top_left: 50, top_right: 50, bottom_left: 50, bottom_right: 50 } },
-      tyres_wear: { top_left: 0, top_right: 50, bottom_left: 0, bottom_right: 0 },
+      tyres_wear: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 },
       wheels_temp: { innerTemp: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 }, surfaceTemp: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 }, brakesTemp: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 } }
     };
   },
@@ -152,13 +152,13 @@ export default {
             <div>{{ wheels_temp.innerTemp.top_left }}º - O</div>
             <div>{{ wheels_temp.surfaceTemp.top_left }}º - S</div>
             <div>{{ wheels_temp.brakesTemp.top_left }}º - B</div>
-            <div>{{tyres_wear.top_left}}% - W</div>
+            <div><font-awesome-icon v-if="tyres_wear.top_left > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" />{{tyres_wear.top_left}}% - W</div>
           </div>
           <div class="wheel_container">
             <div>O - {{ wheels_temp.innerTemp.top_right }}º</div>
             <div>S - {{ wheels_temp.surfaceTemp.top_right }}º</div>
             <div>B - {{ wheels_temp.brakesTemp.top_right }}º</div>
-            <div>W - {{tyres_wear.top_right}}%</div>
+            <div>W - {{tyres_wear.top_right}}%<font-awesome-icon v-if="tyres_wear.top_right > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" /></div>
           </div>
         </div>
         <div class="car_status_row">
@@ -166,13 +166,13 @@ export default {
             <div>{{ wheels_temp.innerTemp.bottom_left }}º - O</div>
             <div>{{ wheels_temp.surfaceTemp.bottom_left }}º - S</div>
             <div>{{ wheels_temp.brakesTemp.bottom_left }}º - B</div>
-            <div>{{tyres_wear.bottom_left}}% - W</div>
+            <div><font-awesome-icon v-if="tyres_wear.bottom_left > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" />{{tyres_wear.bottom_left}}% - W</div>
           </div>
           <div class="wheel_container">
             <div>O - {{ wheels_temp.innerTemp.bottom_right }}º</div>
             <div>S - {{ wheels_temp.surfaceTemp.bottom_right }}º</div>
             <div>B - {{ wheels_temp.brakesTemp.bottom_right }}º</div>
-            <div>W - {{tyres_wear.bottom_right}}%</div>
+            <div>W - {{tyres_wear.bottom_right}}% <font-awesome-icon v-if="tyres_wear.bottom_right > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" /></div>
           </div>
         </div>
       </div>
@@ -181,9 +181,13 @@ export default {
 </template>
 
 <style scoped>
+.wheel_container > div {
+  display: flex;
+  gap: .6rem;
+}
 .wheel_container {
   height: 8rem;
-  width: 6rem;
+  width: 8rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
