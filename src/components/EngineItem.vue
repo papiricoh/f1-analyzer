@@ -95,11 +95,13 @@ svg {
     stroke:#39B54A;
     stroke-width:10;
     stroke-miterlimit:10;
+    transition: 4s;
 }
 .st1{
     fill: #39b54a4d;
     stroke:#39B54A;
     stroke-width:10;
     stroke-miterlimit:10;
+    transition: 4s;
 }
 </style>
