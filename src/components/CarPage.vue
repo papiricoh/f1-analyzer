@@ -25,7 +25,8 @@ export default {
       car: { speed: 230.3, rpm: 10532, gear: 5, engTemp: 20},
       engine: { gearbox: 50, MGU_K: 50, CE: 50, ES: 50, ICE: 50, MGU_H: 50, TC: 50 },
       parts: { front_wing: { left: 50, right: 50 }, floor: 50, diffuser: 50, sidepod: 50, engine: 50, rear_wing: 50, wheels: { top_left: 50, top_right: 50, bottom_left: 50, bottom_right: 50 }, brakes: { top_left: 50, top_right: 50, bottom_left: 50, bottom_right: 50 } },
-      tyres_wear: { top_left: 0, top_right: 50, bottom_left: 0, bottom_right: 0 }
+      tyres_wear: { top_left: 0, top_right: 50, bottom_left: 0, bottom_right: 0 },
+      wheels_temp: { innerTemp: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 }, surfaceTemp: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 }, brakesTemp: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 } }
     };
   },
   watch: { 
@@ -34,6 +35,13 @@ export default {
         this.car.gear = newVal[this.car_index].m_gear;
         this.car.engTemp = newVal[this.car_index].m_engineTemperature;
         this.car.speed = newVal[this.car_index].m_speed;
+        this.wheels_temp = { innerTemp: { 
+          top_left: newVal[this.car_index].m_tyresInnerTemperature[2], top_right: newVal[this.car_index].m_tyresInnerTemperature[3], bottom_left: newVal[this.car_index].m_tyresInnerTemperature[0], bottom_right: newVal[this.car_index].m_tyresInnerTemperature[1] 
+        }, surfaceTemp: { 
+          top_left: newVal[this.car_index].m_tyresSurfaceTemperature[2], top_right: newVal[this.car_index].m_tyresSurfaceTemperature[3], bottom_left: newVal[this.car_index].m_tyresSurfaceTemperature[0], bottom_right: newVal[this.car_index].m_tyresSurfaceTemperature[1] 
+        }, brakesTemp: { 
+          top_left: newVal[this.car_index].m_brakesTemperature[2], top_right: newVal[this.car_index].m_brakesTemperature[3], bottom_left: newVal[this.car_index].m_brakesTemperature[0], bottom_right: newVal[this.car_index].m_brakesTemperature[1]
+        } }
     },
     car_damage: function(newVal, oldVal) {
         let player_engine = newVal[this.car_index];
@@ -141,25 +149,29 @@ export default {
       <div class="car_status_container">
         <div class="car_status_row">
           <div class="wheel_container wheel_left">
-            <div>72º - O</div>
-            <div>100º - S</div>
+            <div>{{ wheels_temp.innerTemp.top_left }}º - O</div>
+            <div>{{ wheels_temp.surfaceTemp.top_left }}º - S</div>
+            <div>{{ wheels_temp.brakesTemp.top_left }}º - B</div>
             <div>{{tyres_wear.top_left}}% - W</div>
           </div>
           <div class="wheel_container">
-            <div>O - 72º</div>
-            <div>S - 100º</div>
+            <div>O - {{ wheels_temp.innerTemp.top_right }}º</div>
+            <div>S - {{ wheels_temp.surfaceTemp.top_right }}º</div>
+            <div>B - {{ wheels_temp.brakesTemp.top_right }}º</div>
             <div>W - {{tyres_wear.top_right}}%</div>
           </div>
         </div>
         <div class="car_status_row">
           <div class="wheel_container wheel_left">
-            <div>72º - O</div>
-            <div>100º - S</div>
+            <div>{{ wheels_temp.innerTemp.bottom_left }}º - O</div>
+            <div>{{ wheels_temp.surfaceTemp.bottom_left }}º - S</div>
+            <div>{{ wheels_temp.brakesTemp.bottom_left }}º - B</div>
             <div>{{tyres_wear.bottom_left}}% - W</div>
           </div>
           <div class="wheel_container">
-            <div>O - 72º</div>
-            <div>S - 100º</div>
+            <div>O - {{ wheels_temp.innerTemp.bottom_right }}º</div>
+            <div>S - {{ wheels_temp.surfaceTemp.bottom_right }}º</div>
+            <div>B - {{ wheels_temp.brakesTemp.bottom_right }}º</div>
             <div>W - {{tyres_wear.bottom_right}}%</div>
           </div>
         </div>
