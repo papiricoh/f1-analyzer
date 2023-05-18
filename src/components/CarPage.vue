@@ -23,7 +23,9 @@ export default {
   data() {
     return {
       car: { speed: 230.3, rpm: 10532, gear: 5, engTemp: 20},
-      engine: { gearbox: 50, MGU_K: 50, CE: 50, ES: 50, ICE: 50, MGU_H: 50, TC: 50 }
+      engine: { gearbox: 50, MGU_K: 50, CE: 50, ES: 50, ICE: 50, MGU_H: 50, TC: 50 },
+      parts: { front_wing: { left: 0, right: 0 }, floor: 90, diffuser: 0, sidepod: 0, engine: 0, rear_wing: 0, wheels: { top_left: 0, top_right: 50, bottom_left: 50, bottom_right: 0 }, brakes: { top_left: 0, top_right: 50, bottom_left: 0, bottom_right: 0 } },
+      tyres_wear: { top_left: 0, top_right: 50, bottom_left: 0, bottom_right: 0 }
     };
   },
   watch: { 
@@ -36,6 +38,7 @@ export default {
     car_damage: function(newVal, oldVal) {
         let player_engine = newVal[this.car_index];
         this.engine = { gearbox: player_engine.m_gearBoxDamage, MGU_K: player_engine.m_engineMGUKWear, CE: player_engine.m_engineCEWear, ES: player_engine.m_engineESWear, ICE: player_engine.m_engineICEWear, MGU_H: player_engine.m_engineMGUHWear, TC: player_engine.m_engineTCWear }
+        this.parts = { front_wing: { left: player_engine.m_frontLeftWingDamage, right: player_engine.m_frontRightWingDamage }, floor: 90, diffuser: 0, sidepod: 0, engine: 0, rear_wing: player_engine.m_rearWingDamage, wheels: { top_left: 0, top_right: 50, bottom_left: 50, bottom_right: 0 }, brakes: { top_left: 0, top_right: 50, bottom_left: 0, bottom_right: 0 } }
     },
   },
   methods: {
@@ -68,6 +71,10 @@ export default {
       colors.ICE = this.checkColor(this.engine.ICE);
       colors.MGU_H = this.checkColor(this.engine.MGU_H);
       colors.TC = this.checkColor(this.engine.TC);
+      return colors;
+    },
+    generateCarColors() {
+      let colors = { front_wing: { left: this.checkColor(this.parts.front_wing.left), right: this.checkColor(this.parts.front_wing.right) }, floor: this.checkColor(this.parts.floor), diffuser: this.checkColor(this.parts.diffuser), sidepod: this.checkColor(this.parts.sidepod), gearbox: this.checkColor(this.engine.gearbox), engine: this.checkColor(this.parts.engine), rear_wing: this.checkColor(this.parts.rear_wing), wheels: { top_left: this.checkColor(this.parts.wheels.top_left), top_right: this.checkColor(this.parts.wheels.top_right), bottom_left: this.checkColor(this.parts.wheels.bottom_left), bottom_right: this.checkColor(this.parts.wheels.bottom_right) }, brakes: { top_left: this.checkColor(this.parts.brakes.top_left), top_right: this.checkColor(this.parts.brakes.top_right), bottom_left: this.checkColor(this.parts.brakes.bottom_left), bottom_right: this.checkColor(this.parts.brakes.bottom_right) } }
       return colors;
     }
   }
@@ -129,7 +136,7 @@ export default {
       </div>
     </div>
     <div class="car_container big_container">
-      <CarItem></CarItem>
+      <CarItem :colorStatus="generateCarColors"></CarItem>
     </div>
   </div>
 </template>
