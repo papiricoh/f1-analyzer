@@ -38,7 +38,8 @@ export default {
     car_damage: function(newVal, oldVal) {
         let player_engine = newVal[this.car_index];
         this.engine = { gearbox: player_engine.m_gearBoxDamage, MGU_K: player_engine.m_engineMGUKWear, CE: player_engine.m_engineCEWear, ES: player_engine.m_engineESWear, ICE: player_engine.m_engineICEWear, MGU_H: player_engine.m_engineMGUHWear, TC: player_engine.m_engineTCWear }
-        this.parts = { front_wing: { left: player_engine.m_frontLeftWingDamage, right: player_engine.m_frontRightWingDamage }, floor: 90, diffuser: 0, sidepod: 0, engine: 0, rear_wing: player_engine.m_rearWingDamage, wheels: { top_left: 0, top_right: 50, bottom_left: 50, bottom_right: 0 }, brakes: { top_left: 0, top_right: 50, bottom_left: 0, bottom_right: 0 } }
+        this.parts = { front_wing: { left: player_engine.m_frontLeftWingDamage, right: player_engine.m_frontRightWingDamage }, floor: player_engine.m_floorDamage, diffuser: player_engine.m_diffuserDamage, sidepod: player_engine.m_sidepodDamage, engine: player_engine.m_engineDamage, rear_wing: player_engine.m_rearWingDamage, wheels: { top_left: player_engine.m_tyresDamage[2], top_right: player_engine.m_tyresDamage[3], bottom_left: player_engine.m_tyresDamage[0], bottom_right: player_engine.m_tyresDamage[1] }, brakes: { top_left: player_engine.m_brakesDamage[2], top_right: player_engine.m_brakesDamage[3], bottom_left: player_engine.m_brakesDamage[0], bottom_right: player_engine.m_brakesDamage[1] } }
+        this.tyres_wear = { top_left: player_engine.m_tyresWear[2], top_right: player_engine.m_tyresWear[3], bottom_left: player_engine.m_tyresWear[0], bottom_right: player_engine.m_tyresWear[1] }
     },
   },
   methods: {
