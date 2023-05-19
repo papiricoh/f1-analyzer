@@ -60,6 +60,15 @@ export default {
         return 0;
       }
     },
+    checkColorCar(percentage) {
+      if(percentage >= 60) {
+        return 2;
+      }else if (percentage >= 10) {
+        return 1;
+      }else {
+        return 0;
+      }
+    },
     checkColorCss(percentage) {
       if(percentage >= 75) {
         return 'color: #b53939;';
@@ -83,7 +92,7 @@ export default {
       return colors;
     },
     generateCarColors() {
-      let colors = { front_wing: { left: this.checkColor(this.parts.front_wing.left), right: this.checkColor(this.parts.front_wing.right) }, floor: this.checkColor(this.parts.floor), diffuser: this.checkColor(this.parts.diffuser), sidepod: this.checkColor(this.parts.sidepod), gearbox: this.checkColor(this.engine.gearbox), engine: this.checkColor(this.parts.engine), rear_wing: this.checkColor(this.parts.rear_wing), wheels: { top_left: this.checkColor(this.parts.wheels.top_left), top_right: this.checkColor(this.parts.wheels.top_right), bottom_left: this.checkColor(this.parts.wheels.bottom_left), bottom_right: this.checkColor(this.parts.wheels.bottom_right) }, brakes: { top_left: this.checkColor(this.parts.brakes.top_left), top_right: this.checkColor(this.parts.brakes.top_right), bottom_left: this.checkColor(this.parts.brakes.bottom_left), bottom_right: this.checkColor(this.parts.brakes.bottom_right) } }
+      let colors = { front_wing: { left: this.checkColorCar(this.parts.front_wing.left), right: this.checkColorCar(this.parts.front_wing.right) }, floor: this.checkColorCar(this.parts.floor), diffuser: this.checkColorCar(this.parts.diffuser), sidepod: this.checkColorCar(this.parts.sidepod), gearbox: this.checkColor(this.engine.gearbox), engine: this.checkColor(this.parts.engine), rear_wing: this.checkColorCar(this.parts.rear_wing), wheels: { top_left: this.checkColor(this.parts.wheels.top_left), top_right: this.checkColor(this.parts.wheels.top_right), bottom_left: this.checkColor(this.parts.wheels.bottom_left), bottom_right: this.checkColor(this.parts.wheels.bottom_right) }, brakes: { top_left: this.checkColor(this.parts.brakes.top_left), top_right: this.checkColor(this.parts.brakes.top_right), bottom_left: this.checkColor(this.parts.brakes.bottom_left), bottom_right: this.checkColor(this.parts.brakes.bottom_right) } }
       return colors;
     }
   }
