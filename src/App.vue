@@ -20,6 +20,7 @@ export default {
       lapPlayerIndex: 0,
       num_cars: 0,
       car_damage: null,
+      last_event: { code: null, details: null },
       config: {
         my_team: { custom_team_name: "Custom Team", allowed: false },
         mph: false,
@@ -47,6 +48,9 @@ export default {
     });
     ipcRenderer.on('carDamage-data', (event, data) => {
       this.car_damage = data.m_carDamageData;
+    });
+    ipcRenderer.on('event-data', (event, data) => {
+      this.last_event = { code: data.m_eventStringCode, details: data.m_eventDetails };
     });
   },
   beforeDestroy() {

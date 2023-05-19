@@ -21,6 +21,9 @@ function startListening(win) {
   f122.on('carDamage', function(data) {
     win.webContents.send('carDamage-data', data);
   });
+  f122.on('event', function(data) {
+    win.webContents.send('event-data', data);
+  });
 }
 
 export default startListening;
