@@ -22,7 +22,7 @@ export default {
   },
   data() {
     return {
-      car: { speed: 230.3, rpm: 10532, gear: 5, engTemp: 20},
+      car: { speed: 230.3, rpm: 10532, gear: 5, engTemp: 20, drs: 0},
       engine: { gearbox: 50, MGU_K: 50, CE: 50, ES: 50, ICE: 50, MGU_H: 50, TC: 50 },
       parts: { front_wing: { left: 50, right: 50 }, floor: 50, diffuser: 50, sidepod: 50, engine: 50, rear_wing: 50, wheels: { top_left: 50, top_right: 50, bottom_left: 50, bottom_right: 50 }, brakes: { top_left: 50, top_right: 50, bottom_left: 50, bottom_right: 50 } },
       tyres_wear: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 },
@@ -35,6 +35,7 @@ export default {
         this.car.gear = newVal[this.car_index].m_gear;
         this.car.engTemp = newVal[this.car_index].m_engineTemperature;
         this.car.speed = newVal[this.car_index].m_speed;
+        this.car.drs = newVal[this.car_index].m_drs;
         this.wheels_temp = { innerTemp: { 
           top_left: newVal[this.car_index].m_tyresInnerTemperature[2], top_right: newVal[this.car_index].m_tyresInnerTemperature[3], bottom_left: newVal[this.car_index].m_tyresInnerTemperature[0], bottom_right: newVal[this.car_index].m_tyresInnerTemperature[1] 
         }, surfaceTemp: { 
@@ -151,6 +152,8 @@ export default {
         </div>
         <div v-if="mph" style="text-align: center;">{{ (car.speed * 0.622).toFixed(0) }} mph</div>
         <div v-else style="text-align: center;">{{ car.speed }} km/h</div>
+        <div v-if="car.drs == 1" class="drs_container">DRS</div>
+        <div v-else class="drs_container_off">DRS</div>
       </div>
     </div>
     <div class="car_container big_container">
@@ -193,6 +196,35 @@ export default {
 </template>
 
 <style scoped>
+.drs_container_off {
+  text-align: center;
+  background: grey;
+  padding: 1rem;
+  border-radius: .4rem;
+}
+.drs_container {
+  text-align: center;
+  background: linear-gradient(90deg, rgba(72,158,29,1) 0%, rgba(41,255,0,1) 55%, rgba(166,255,41,1) 100%);
+  padding: 1rem;
+  border-radius: .4rem;
+	background-size: 400% 400%;
+  animation: drs_on 1.5s infinite;
+}
+
+@keyframes drs_on {
+  0% {
+    background-position: 0% 50%;
+    color: white;
+  }
+  50% {
+    background-position: 100% 50%;
+    color: black;
+  }
+  100% {
+    background-position: 0% 50%;
+    color: white;
+  }
+}
 .last_container {
   height: 26rem;
 }
