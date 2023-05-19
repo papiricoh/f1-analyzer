@@ -51,6 +51,7 @@ export default {
     });
     ipcRenderer.on('event-data', (event, data) => {
       this.last_event = { code: data.m_eventStringCode, details: data.m_eventDetails };
+      this.inicialiceNotification(this.last_event);
     });
   },
   beforeDestroy() {
@@ -59,6 +60,24 @@ export default {
     ipcRenderer.removeAllListeners('lapData-data');
   },
   methods: {
+    inicialiceNotification(event) {
+      if(event.code == 'CHQF') {
+        this.notification_data = { type: 'yellow_flag', text: 'Yellow flag in ahead'};
+        this.showNotificationWithTimer();
+      }
+    },
+    showNotificationWithTimer() {
+      this.notification_on = true;
+      let counter = 10;
+
+      const timer = setInterval(() => {
+        counter--;
+        if (counter === 0) {
+          clearInterval(timer);
+          this.notification_on = false;
+        }
+      }, counter * 1000);
+    },
     closeNotification() {
       this.notification_on = false;
     },
