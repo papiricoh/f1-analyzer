@@ -15,6 +15,10 @@ Future planned features include:
 
 - **Fuel Usage**: Keep track of fuel consumption to optimize performance.
 
+## F1 22 Configuration
+
+Activate UDP configuration for your game, **do not set it to Broadcast Mode**.
+
 ## Contributing
 
 We welcome contributions! Please feel free to fork the repository and submit pull requests. For major changes, open an issue first to discuss what you would like to change.
