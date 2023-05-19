@@ -7,13 +7,13 @@ This project is a real-time telemetry application for the Formula 1 2022 video g
 Currently, the following feature has been fully developed:
 
 - **Position Tracking**: Get real-time updates on the current positions of all drivers in the race. 
+- **Speed Monitoring**: View your current speed and compare it with the average speed.
+- **Tire Pressure**: Monitor tire pressure to strategize pit stops.
+- **Detailed Analysis**: Comprehensive charts and graphs for a deeper understanding of your performance.
 
 Future planned features include:
 
-- **Speed Monitoring**: View your current speed and compare it with the average speed.
-- **Tire Pressure**: Monitor tire pressure to strategize pit stops.
 - **Fuel Usage**: Keep track of fuel consumption to optimize performance.
-- **Detailed Analysis**: Comprehensive charts and graphs for a deeper understanding of your performance.
 
 ## Contributing
 
