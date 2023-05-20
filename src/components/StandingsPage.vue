@@ -189,7 +189,6 @@ export default {
                 <div>S1</div>
                 <div>S2</div>
                 <div>LAST LAP</div>
-                <div>SPEED TRAP</div>
             </div>
             <div v-for="(car, index) in renderer_cars" class="table_row" :style="isPlayerCss(index)">
                 <div>{{car.pos}}</div>
@@ -212,7 +211,6 @@ export default {
                 <div>{{new Date(car.S1).toISOString().slice(15, -1)}}</div>
                 <div>{{new Date(car.S2).toISOString().slice(15, -1)}}</div>
                 <div>{{new Date(car.last_lap).toISOString().slice(15, -1)}}</div>
-                <div>{{car.speed_trap}}</div>
             </div>
         </div>
     </div>
