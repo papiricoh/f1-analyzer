@@ -143,41 +143,7 @@ export default {
           <div class="engine_label" :style="checkColorCss(engine.gearbox)">Gearbox: {{ engine.gearbox }}% <font-awesome-icon v-if="engine.gearbox >= 90" style="height: 1.4rem; color: #b53939;" icon="fa-solid fa-warning" /></div>
         </div>
       </div>
-      <div class="car_data"> <!-- Disable to work in other parts -->
-        <div class="gear_container">
-          <div v-if="car.gear == 1" class="gear_selected">1</div>
-          <div v-else>1</div>
-          <div v-if="car.gear == 2" class="gear_selected">2</div>
-          <div v-else>2</div>
-          <div v-if="car.gear == 3" class="gear_selected">3</div>
-          <div v-else>3</div>
-          <div v-if="car.gear == 4" class="gear_selected">4</div>
-          <div v-else>4</div>
-          <div v-if="car.gear == 5" class="gear_selected">5</div>
-          <div v-else>5</div>
-          <div v-if="car.gear == 6" class="gear_selected">6</div>
-          <div v-else>6</div>
-          <div v-if="car.gear == 7" class="gear_selected">7</div>
-          <div v-else>7</div>
-          <div v-if="car.gear == 8" class="gear_selected">8</div>
-          <div v-else>8</div>
-        </div>
-        <div class="rpm_container">
-          <div class="progressBar_container">
-            <div class="progressBar" :style="'width: ' + (( car.rpm / 13500 ) * 100).toFixed(0) + '%;'"></div>
-          </div>
-          <div class="rpm_display" style="text-align: center;"> {{ car.rpm }} rpm</div>
-        </div>
-        <div class="engineTemp_container">
-          <font-awesome-icon style="height: 2rem;" icon="fa-solid fa-temperature-2" />
-          <div>{{ car.engTemp }}º</div>
-          <font-awesome-icon v-if="car.engTemp > 120" style="height: 2rem; color: #b5a939;" icon="fa-solid fa-warning" />
-        </div>
-        <div v-if="mph" style="text-align: center;">{{ (car.speed * 0.622).toFixed(0) }} mph</div>
-        <div v-else style="text-align: center;">{{ car.speed }} km/h</div>
-        <div v-if="car.drs == 1" class="drs_container">DRS</div>
-        <div v-else class="drs_container_off">DRS</div>
-      </div>
+      
     </div>
     <div class="car_container big_container">
       <CarItem :brakesTemp="wheels_temp.brakesTemp" :innerTemp="wheels_temp.innerTemp" :colorStatus="generateCarColors"></CarItem>
@@ -228,6 +194,41 @@ export default {
             <div>{{ calculateGForce(motion_data.g_force.longitudinal, true).toFixed(1) }}</div>
           </div>
         </div>
+      </div>
+      <div class="car_data"> <!-- Disable to work in other parts -->
+        <div class="gear_container">
+          <div v-if="car.gear == 1" class="gear_selected">1</div>
+          <div v-else>1</div>
+          <div v-if="car.gear == 2" class="gear_selected">2</div>
+          <div v-else>2</div>
+          <div v-if="car.gear == 3" class="gear_selected">3</div>
+          <div v-else>3</div>
+          <div v-if="car.gear == 4" class="gear_selected">4</div>
+          <div v-else>4</div>
+          <div v-if="car.gear == 5" class="gear_selected">5</div>
+          <div v-else>5</div>
+          <div v-if="car.gear == 6" class="gear_selected">6</div>
+          <div v-else>6</div>
+          <div v-if="car.gear == 7" class="gear_selected">7</div>
+          <div v-else>7</div>
+          <div v-if="car.gear == 8" class="gear_selected">8</div>
+          <div v-else>8</div>
+        </div>
+        <div class="rpm_container">
+          <div class="progressBar_container">
+            <div class="progressBar" :style="'width: ' + (( car.rpm / 13500 ) * 100).toFixed(0) + '%;'"></div>
+          </div>
+          <div class="rpm_display" style="text-align: center;"> {{ car.rpm }} rpm</div>
+        </div>
+        <div class="engineTemp_container">
+          <font-awesome-icon style="height: 2rem;" icon="fa-solid fa-temperature-2" />
+          <div>{{ car.engTemp }}º</div>
+          <font-awesome-icon v-if="car.engTemp > 120" style="height: 2rem; color: #b5a939;" icon="fa-solid fa-warning" />
+        </div>
+        <div v-if="mph" style="text-align: center;">{{ (car.speed * 0.622).toFixed(0) }} mph</div>
+        <div v-else style="text-align: center;">{{ car.speed }} km/h</div>
+        <div v-if="car.drs == 1" class="drs_container">DRS</div>
+        <div v-else class="drs_container_off">DRS</div>
       </div>
     </div>
   </div>
@@ -311,6 +312,8 @@ export default {
 }
 .last_container {
   height: 26rem;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .wheel_container > div {
   display: flex;
@@ -396,7 +399,7 @@ export default {
 .car_data {
   display: flex;
   flex-direction: column;
-  width: 10rem;
+  width: 50%;
   gap: 1rem;
 }
 .car_engine_container {
