@@ -16,6 +16,9 @@ export default {
     car_damage: {
       type: Array,
     },
+    player_motionData: {
+      type: Object,
+    },
     mph: {
       type: Boolean,
     },
@@ -26,7 +29,8 @@ export default {
       engine: { gearbox: 50, MGU_K: 50, CE: 50, ES: 50, ICE: 50, MGU_H: 50, TC: 50 },
       parts: { front_wing: { left: 50, right: 50 }, floor: 50, diffuser: 50, sidepod: 50, engine: 50, rear_wing: 50, wheels: { top_left: 50, top_right: 50, bottom_left: 50, bottom_right: 50 }, brakes: { top_left: 50, top_right: 50, bottom_left: 50, bottom_right: 50 } },
       tyres_wear: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 },
-      wheels_temp: { innerTemp: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 }, surfaceTemp: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 }, brakesTemp: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 } }
+      wheels_temp: { innerTemp: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 }, surfaceTemp: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 }, brakesTemp: { top_left: 0, top_right: 0, bottom_left: 0, bottom_right: 0 } },
+      motion_data: { g_force: { lateral: 0, longitudinal: 0 } }
     };
   },
   watch: { 
@@ -49,6 +53,10 @@ export default {
         this.engine = { gearbox: player_engine.m_gearBoxDamage, MGU_K: player_engine.m_engineMGUKWear, CE: player_engine.m_engineCEWear, ES: player_engine.m_engineESWear, ICE: player_engine.m_engineICEWear, MGU_H: player_engine.m_engineMGUHWear, TC: player_engine.m_engineTCWear }
         this.parts = { front_wing: { left: player_engine.m_frontLeftWingDamage, right: player_engine.m_frontRightWingDamage }, floor: player_engine.m_floorDamage, diffuser: player_engine.m_diffuserDamage, sidepod: player_engine.m_sidepodDamage, engine: player_engine.m_engineDamage, rear_wing: player_engine.m_rearWingDamage, wheels: { top_left: player_engine.m_tyresDamage[2], top_right: player_engine.m_tyresDamage[3], bottom_left: player_engine.m_tyresDamage[0], bottom_right: player_engine.m_tyresDamage[1] }, brakes: { top_left: player_engine.m_brakesDamage[2], top_right: player_engine.m_brakesDamage[3], bottom_left: player_engine.m_brakesDamage[0], bottom_right: player_engine.m_brakesDamage[1] } }
         this.tyres_wear = { top_left: player_engine.m_tyresWear[2], top_right: player_engine.m_tyresWear[3], bottom_left: player_engine.m_tyresWear[0], bottom_right: player_engine.m_tyresWear[1] }
+    },
+    player_motionData: function(newVal, oldVal) {
+        this.motion_data.g_force.lateral = newVal.m_gForceLateral;
+        this.motion_data.g_force.longitudinal = newVal.m_gForceLongitudinal;
     },
   },
   methods: {
@@ -190,12 +198,45 @@ export default {
       </div>
     </div>
     <div class="car_container last_container">
-
+      <div class="g_force_container">
+        <div class="g_force">
+          <img style="width: 22rem;" src="g-forces.svg" alt="">
+          <svg :style="'transform: translateX(' + motion_data.g_force.lateral + 'rem) translateY(' + motion_data.g_force.longitudinal + 'rem);'" class="g_force_circle" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="50"/>
+          </svg>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
+.g_force_circle {
+  fill: white;
+  height: 1rem;
+  z-index: 1;
+  position: absolute;
+  transition: .4s;
+  transform: translateX(0) translateY(0);
+}
+.g_force > img, .g_force > svg {
+  grid-row: 1/2;
+  grid-column: 1/2;
+}
+.g_force {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.g_force_container {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  width: 24rem;
+}
 .drs_container_off {
   text-align: center;
   background: grey;

@@ -12,12 +12,13 @@ export default {
   data() {
     return {
       page: 'standings',
-      motionData: null,
+      telemetryData: null,
       participantsData: null,
       lapData: null,
       car_index: 0,
       carStatus: null,
       lapPlayerIndex: 0,
+      player_motionData: null,
       num_cars: 0,
       car_damage: null,
       last_event: { code: null, details: null },
@@ -31,9 +32,12 @@ export default {
     };
   },
   created() {
-    ipcRenderer.on('motion-data', (event, data) => {
-      this.motionData = data.m_carTelemetryData;
+    ipcRenderer.on('telemetry-data', (event, data) => {
+      this.telemetryData = data.m_carTelemetryData;
       this.car_index = data.m_header.m_playerCarIndex;
+    });
+    ipcRenderer.on('motion-data', (event, data) => {
+      this.player_motionData = data.m_carMotionData[this.car_index];
     });
     ipcRenderer.on('participants-data', (event, data) => {
       this.participantsData = data.m_participants;
@@ -101,7 +105,7 @@ export default {
       <div class="header_button" @click="page = 'config'">CONFIG</div>
     </header>
     <div class="page">
-      <CarPage :mph="config.mph" :car_damage="car_damage" :car_index="car_index" :telemetry="motionData" v-if="page == 'car'"></CarPage>
+      <CarPage :player_motionData="player_motionData" :mph="config.mph" :car_damage="car_damage" :car_index="car_index" :telemetry="telemetryData" v-if="page == 'car'"></CarPage>
       <StandingsPage :my_team="config.my_team" :num_cars="num_cars" :carStatus="carStatus" :lapData="lapData" :car_index="lapPlayerIndex" :participantsData="participantsData" v-if="page == 'standings'"></StandingsPage>
       <ConfigPage @pageStandings="pageStandings" @updateConfig="updateConfig" :config="config" v-if="page == 'config'"></ConfigPage>
     </div>
