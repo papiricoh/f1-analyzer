@@ -143,7 +143,13 @@ export default {
           <div class="engine_label" :style="checkColorCss(engine.gearbox)">Gearbox: {{ engine.gearbox }}% <font-awesome-icon v-if="engine.gearbox >= 90" style="height: 1.4rem; color: #b53939;" icon="fa-solid fa-warning" /></div>
         </div>
       </div>
-      
+      <div>
+        <div class="engineTemp_container">
+          <font-awesome-icon style="height: 2rem;" icon="fa-solid fa-temperature-2" />
+          <div>{{ car.engTemp }}º</div>
+          <font-awesome-icon v-if="car.engTemp > 120" style="height: 2rem; color: #b5a939;" icon="fa-solid fa-warning" />
+        </div>
+      </div>
     </div>
     <div class="car_container big_container">
       <CarItem :brakesTemp="wheels_temp.brakesTemp" :innerTemp="wheels_temp.innerTemp" :colorStatus="generateCarColors"></CarItem>
@@ -220,15 +226,11 @@ export default {
           </div>
           <div class="rpm_display" style="text-align: center;"> {{ car.rpm }} rpm</div>
         </div>
-        <div class="engineTemp_container">
-          <font-awesome-icon style="height: 2rem;" icon="fa-solid fa-temperature-2" />
-          <div>{{ car.engTemp }}º</div>
-          <font-awesome-icon v-if="car.engTemp > 120" style="height: 2rem; color: #b5a939;" icon="fa-solid fa-warning" />
-        </div>
-        <div v-if="mph" style="text-align: center;">{{ (car.speed * 0.622).toFixed(0) }} mph</div>
-        <div v-else style="text-align: center;">{{ car.speed }} km/h</div>
+        <div v-if="mph" style="text-align: center; font-size: 2rem;">{{ (car.speed * 0.622).toFixed(0) }} mph</div>
+        <div v-else style="text-align: center; font-size: 2rem;">{{ car.speed }} km/h</div>
         <div v-if="car.drs == 1" class="drs_container">DRS</div>
         <div v-else class="drs_container_off">DRS</div>
+        
       </div>
     </div>
   </div>
@@ -377,9 +379,16 @@ export default {
 }
 .gear_container {
   display: flex;
-  gap: .4rem;
+  gap: 2rem;
   justify-content: center;
   align-items: center;
+}
+.gear_container > div {
+  font-size: 2.2rem;
+}
+
+.rpm_display {
+  font-size: 1.8rem;
 }
 
 .progressBar_container, .progressBar {
