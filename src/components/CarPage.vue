@@ -87,6 +87,21 @@ export default {
         return 'color: #39B54A;';
       }
     },
+    calculateGForce(number, positive) {
+      if(positive) {
+        if(number > 0) {
+          return number;
+        }else {
+          return 0;
+        }
+      }else {
+        if(number < 0) {
+          return Math.abs(number);
+        }else {
+          return 0;
+        }
+      }
+    }
   },
   computed: {
     generateColors() {
@@ -200,10 +215,18 @@ export default {
     <div class="car_container last_container">
       <div class="g_force_container">
         <div class="g_force">
-          <img style="width: 22rem;" src="g-forces.svg" alt="">
+          <img style="width: 18rem;" src="g-forces.svg" alt="">
           <svg :style="'transform: translateX(' + motion_data.g_force.lateral + 'rem) translateY(' + motion_data.g_force.longitudinal + 'rem);'" class="g_force_circle" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <circle cx="60" cy="60" r="50"/>
           </svg>
+          <div class="g_force_data">
+            <div>{{ calculateGForce(motion_data.g_force.longitudinal, false).toFixed(1) }}</div>
+            <div class="g_force_lateral">
+              <div>{{ calculateGForce(motion_data.g_force.lateral, false).toFixed(1) }}</div>
+              <div>{{ calculateGForce(motion_data.g_force.lateral, true).toFixed(1) }}</div>
+            </div>
+            <div>{{ calculateGForce(motion_data.g_force.longitudinal, true).toFixed(1) }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -211,6 +234,24 @@ export default {
 </template>
 
 <style scoped>
+.g_force_lateral {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.g_force_data {
+  grid-row: 1/2;
+  grid-column: 1/2;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
+  position: absolute;
+  width: 24rem;
+  height: 24rem;
+}
 .g_force_circle {
   fill: white;
   height: 1rem;
@@ -222,11 +263,13 @@ export default {
 .g_force > img, .g_force > svg {
   grid-row: 1/2;
   grid-column: 1/2;
+  margin: 2rem;
 }
 .g_force {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 .g_force_container {
   display: grid;
