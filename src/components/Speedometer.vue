@@ -14,7 +14,6 @@ export default {
     methods: {
         calculateRpm() {
             let percentage =  this.rpm / this.max_rpm;
-            console.log(percentage);
             return percentage * 0.5;
         }
     }
