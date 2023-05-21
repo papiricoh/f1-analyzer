@@ -1,6 +1,7 @@
 <script setup>
 import EngineItem from './EngineItem.vue';
 import CarItem from './CarItem.vue';
+import Speedometer from './Speedometer.vue';
 </script>
 
 <script>
@@ -55,8 +56,13 @@ export default {
         this.tyres_wear = { top_left: player_engine.m_tyresWear[2], top_right: player_engine.m_tyresWear[3], bottom_left: player_engine.m_tyresWear[0], bottom_right: player_engine.m_tyresWear[1] }
     },
     player_motionData: function(newVal, oldVal) {
+      if(newVal != null) {
         this.motion_data.g_force.lateral = newVal.m_gForceLateral;
         this.motion_data.g_force.longitudinal = newVal.m_gForceLongitudinal;
+      }else {
+        this.motion_data.g_force.lateral = 0;
+        this.motion_data.g_force.longitudinal = 0;
+      }
     },
   },
   methods: {
@@ -220,12 +226,13 @@ export default {
           <div v-if="car.gear == 8" class="gear_selected">8</div>
           <div v-else>8</div>
         </div>
-        <div class="rpm_container">
+        <!--<div class="rpm_container">
           <div class="progressBar_container">
             <div class="progressBar" :style="'width: ' + (( car.rpm / 13500 ) * 100).toFixed(0) + '%;'"></div>
           </div>
           <div class="rpm_display" style="text-align: center;"> {{ car.rpm }} rpm</div>
-        </div>
+        </div>-->
+        <Speedometer :rpm="car.rpm"></Speedometer>
         <div v-if="mph" style="text-align: center; font-size: 2rem;">{{ (car.speed * 0.622).toFixed(0) }} mph</div>
         <div v-else style="text-align: center; font-size: 2rem;">{{ car.speed }} km/h</div>
         <div v-if="car.drs == 1" class="drs_container">DRS</div>
