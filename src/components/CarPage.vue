@@ -2,6 +2,7 @@
 import EngineItem from './EngineItem.vue';
 import CarItem from './CarItem.vue';
 import Speedometer from './Speedometer.vue';
+import G_forces from './svg/G-forces.vue'
 </script>
 
 <script>
@@ -139,7 +140,7 @@ export default {
     <div class="car_container last_container">
       <div class="g_force_container">
         <div class="g_force">
-          <img style="width: 18rem;" src="g-forces.svg" alt="">
+          <G_forces style="width: 18rem;"></G_forces>
           <svg :style="'transform: translateX(' + motion_data.g_force.lateral + 'rem) translateY(' + motion_data.g_force.longitudinal + 'rem);'" class="g_force_circle" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
             <circle cx="60" cy="60" r="50"/>
           </svg>
