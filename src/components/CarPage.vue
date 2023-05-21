@@ -136,6 +136,56 @@ export default {
 
 <template>
   <div class="car_grid">
+    <div class="car_container last_container">
+      <div class="g_force_container">
+        <div class="g_force">
+          <img style="width: 18rem;" src="g-forces.svg" alt="">
+          <svg :style="'transform: translateX(' + motion_data.g_force.lateral + 'rem) translateY(' + motion_data.g_force.longitudinal + 'rem);'" class="g_force_circle" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="60" cy="60" r="50"/>
+          </svg>
+          <div class="g_force_data">
+            <div>{{ calculateGForce(motion_data.g_force.longitudinal, false).toFixed(1) }}</div>
+            <div class="g_force_lateral">
+              <div>{{ calculateGForce(motion_data.g_force.lateral, false).toFixed(1) }}</div>
+              <div>{{ calculateGForce(motion_data.g_force.lateral, true).toFixed(1) }}</div>
+            </div>
+            <div>{{ calculateGForce(motion_data.g_force.longitudinal, true).toFixed(1) }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="car_data"> <!-- Disable to work in other parts -->
+        <div class="gear_container">
+          <div v-if="car.gear == 1" class="gear_selected">1</div>
+          <div v-else>1</div>
+          <div v-if="car.gear == 2" class="gear_selected">2</div>
+          <div v-else>2</div>
+          <div v-if="car.gear == 3" class="gear_selected">3</div>
+          <div v-else>3</div>
+          <div v-if="car.gear == 4" class="gear_selected">4</div>
+          <div v-else>4</div>
+          <div v-if="car.gear == 5" class="gear_selected">5</div>
+          <div v-else>5</div>
+          <div v-if="car.gear == 6" class="gear_selected">6</div>
+          <div v-else>6</div>
+          <div v-if="car.gear == 7" class="gear_selected">7</div>
+          <div v-else>7</div>
+          <div v-if="car.gear == 8" class="gear_selected">8</div>
+          <div v-else>8</div>
+        </div>
+        <!--<div class="rpm_container">
+          <div class="progressBar_container">
+            <div class="progressBar" :style="'width: ' + (( car.rpm / 13500 ) * 100).toFixed(0) + '%;'"></div>
+          </div>
+          <div class="rpm_display" style="text-align: center;"> {{ car.rpm }} rpm</div>
+        </div>-->
+        <Speedometer :rpm="car.rpm"></Speedometer>
+        <div v-if="mph" style="text-align: center; font-size: 2rem;">{{ (car.speed * 0.622).toFixed(0) }} mph</div>
+        <div v-else style="text-align: center; font-size: 2rem;">{{ car.speed }} km/h</div>
+        <div v-if="car.drs == 1" class="drs_container">DRS</div>
+        <div v-else class="drs_container_off">DRS</div>
+        
+      </div>
+    </div>
     <div class="car_container car_engine_container">
       <div class="engine_container">
         <EngineItem :colorStatus="generateColors"></EngineItem>
@@ -188,56 +238,6 @@ export default {
             <div>W - {{tyres_wear.bottom_right.toFixed(1)}}% <font-awesome-icon v-if="tyres_wear.bottom_right > 40" style="height: 1rem; color: #b5a939;" icon="fa-solid fa-warning" /></div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="car_container last_container">
-      <div class="g_force_container">
-        <div class="g_force">
-          <img style="width: 18rem;" src="g-forces.svg" alt="">
-          <svg :style="'transform: translateX(' + motion_data.g_force.lateral + 'rem) translateY(' + motion_data.g_force.longitudinal + 'rem);'" class="g_force_circle" viewBox="0 0 120 120" version="1.1" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="60" cy="60" r="50"/>
-          </svg>
-          <div class="g_force_data">
-            <div>{{ calculateGForce(motion_data.g_force.longitudinal, false).toFixed(1) }}</div>
-            <div class="g_force_lateral">
-              <div>{{ calculateGForce(motion_data.g_force.lateral, false).toFixed(1) }}</div>
-              <div>{{ calculateGForce(motion_data.g_force.lateral, true).toFixed(1) }}</div>
-            </div>
-            <div>{{ calculateGForce(motion_data.g_force.longitudinal, true).toFixed(1) }}</div>
-          </div>
-        </div>
-      </div>
-      <div class="car_data"> <!-- Disable to work in other parts -->
-        <div class="gear_container">
-          <div v-if="car.gear == 1" class="gear_selected">1</div>
-          <div v-else>1</div>
-          <div v-if="car.gear == 2" class="gear_selected">2</div>
-          <div v-else>2</div>
-          <div v-if="car.gear == 3" class="gear_selected">3</div>
-          <div v-else>3</div>
-          <div v-if="car.gear == 4" class="gear_selected">4</div>
-          <div v-else>4</div>
-          <div v-if="car.gear == 5" class="gear_selected">5</div>
-          <div v-else>5</div>
-          <div v-if="car.gear == 6" class="gear_selected">6</div>
-          <div v-else>6</div>
-          <div v-if="car.gear == 7" class="gear_selected">7</div>
-          <div v-else>7</div>
-          <div v-if="car.gear == 8" class="gear_selected">8</div>
-          <div v-else>8</div>
-        </div>
-        <!--<div class="rpm_container">
-          <div class="progressBar_container">
-            <div class="progressBar" :style="'width: ' + (( car.rpm / 13500 ) * 100).toFixed(0) + '%;'"></div>
-          </div>
-          <div class="rpm_display" style="text-align: center;"> {{ car.rpm }} rpm</div>
-        </div>-->
-        <Speedometer :rpm="car.rpm"></Speedometer>
-        <div v-if="mph" style="text-align: center; font-size: 2rem;">{{ (car.speed * 0.622).toFixed(0) }} mph</div>
-        <div v-else style="text-align: center; font-size: 2rem;">{{ car.speed }} km/h</div>
-        <div v-if="car.drs == 1" class="drs_container">DRS</div>
-        <div v-else class="drs_container_off">DRS</div>
-        
       </div>
     </div>
   </div>
