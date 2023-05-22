@@ -6,10 +6,16 @@ export default {
   },
   data() {
     return {
-        
+        animation_on_progress: false,
     };
   },
   methods: {
+    triggerAnimation() {
+      this.animation_on_progress = true
+      setTimeout(() => {
+        this.animation_on_progress = false
+      }, 1500)
+    },
     closeNotification() {
         this.$emit('closeNotification');
     }
@@ -19,7 +25,7 @@ export default {
 
 <template>
     <div>
-        <div class="notification_body">
+        <div class="notification_body on_animation">
             <img class="notification_logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Fédération_Internationale_de_l%27Automobile_wordmark.svg/800px-Fédération_Internationale_de_l%27Automobile_wordmark.svg.png" alt="">
             <div class="race_control_container">
                 <div class="race_control">RACE CONTROL</div>
@@ -32,6 +38,34 @@ export default {
 </template>
 
 <style scoped>
+.on_animation {
+  animation: display 1.5s;
+}
+@keyframes display {
+  0% {
+    width: 42rem;
+    transform: translateY(-200px);
+  }
+  100% {
+    width: 86rem;
+    transform: translateY(0);
+  }
+}
+.notification_body {
+    background-color: #03071eca;
+    height: 10rem;
+    width: 86rem;
+    margin: 2rem;
+    margin-top: 8rem;
+    transition: .4s;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    border-bottom-right-radius: 2rem;
+}
+.notification_body > * {
+    color: white;
+}
 .main_text {
   font-size: 1.4rem;
   padding: 1rem;
