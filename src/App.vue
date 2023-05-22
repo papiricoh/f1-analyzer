@@ -74,6 +74,9 @@ export default {
       }else if(event.code == 'DRSD') {
         this.notification_data = { type: 'drs_off', text: 'DRS Disabled'};
         this.showNotificationWithTimer();
+      }else if(event.code == 'TMPT') {
+        this.notification_data = { type: 'teammate_in_pits', text: 'Team mate in pits'};
+        this.showNotificationWithTimer();
       }else if(event.code == 'RTMT') {
         this.notification_data = { type: 'retirement', text: this.participantsData[event.data.vehicleIdx].m_name  + ' has retired'};
         this.showNotificationWithTimer();
