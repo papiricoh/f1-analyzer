@@ -1,7 +1,7 @@
 <script setup>
-import EngineItem from './EngineItem.vue';
-import CarItem from './CarItem.vue';
-import Speedometer from './Speedometer.vue';
+import EngineItem from './items/EngineItem.vue';
+import CarItem from './items/CarItem.vue';
+import Speedometer from './items/Speedometer.vue';
 import G_forces from './svg/G-forces.vue'
 </script>
 
