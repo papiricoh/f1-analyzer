@@ -19,52 +19,41 @@ export default {
 <template>
     <div>
         <div class="notification_body">
-            <div class="notification_header">
-                <div v-if="data.type == 'yellow_flag'" class="notification_title yellow_flag_title"><font-awesome-icon style="font-size: 3rem;" icon="fa-solid fa-flag" /> YELLOW FLAG</div>
-                <div v-else class="notification_title">{{data.type}}</div>
-                <button @click="closeNotification()"><font-awesome-icon icon="fa-solid fa-xmark" /></button>
+            <img class="notification_logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Fédération_Internationale_de_l%27Automobile_wordmark.svg/800px-Fédération_Internationale_de_l%27Automobile_wordmark.svg.png" alt="">
+            <div class="race_control_container">
+                <div class="race_control">RACE CONTROL</div>
             </div>
-            <div class="notification_text">
-                {{ data.text }}
+            <div class="main_text">
+
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-button {
-    border: 1px solid white;
-    background-color: transparent;
-    cursor: pointer;
-    border-radius: .2rem;
-    color: white;
-    padding: 1rem;
-    box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.403);
+.race_control {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: .4s;
-}
-
-button:hover {
-    background-color: white;
-    color: black;
-    transition: .4s;
-}
-
-button:active {
-    background-color: transparent;
-    color: white;
-    transition: .4s;
-}
-
-.notification_title {
+    color: #c51818;
     font-size: 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+    width: 100%;
+    height: 60%;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-top: 0;
+    border-bottom: 0;
+    font-weight: bolder;
 }
-.yellow_flag_title {
-    color: rgb(216, 202, 0);
+.notification_logo {
+    margin: 2rem;
+    width: 80px;
+}
+.race_control_container {
+    background-color: #03071e;
+    width: 20rem;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>

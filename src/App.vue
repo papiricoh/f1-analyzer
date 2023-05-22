@@ -27,7 +27,7 @@ export default {
         mph: false,
       },
       
-      notification_on: false,
+      notification_on: true,
       notification_data: { type: 'yellow_flag', text: 'Yellow flag in sector 3: Versapen\'s Crash into turn 14'},
     };
   },
@@ -55,6 +55,7 @@ export default {
     });
     ipcRenderer.on('event-data', (event, data) => {
       this.last_event = { code: data.m_eventStringCode, details: data.m_eventDetails };
+      this.inicialiceNotification(this.last_event);
     });
   },
   beforeDestroy() {
