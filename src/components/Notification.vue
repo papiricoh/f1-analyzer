@@ -5,7 +5,7 @@ export default {
   },
   data() {
     return {
-        
+        text: "",
     };
   },
   methods: {
@@ -24,13 +24,17 @@ export default {
                 <div class="race_control">RACE CONTROL</div>
             </div>
             <div class="main_text">
-
+              {{ text }} 
             </div>
         </div>
     </div>
 </template>
 
 <style scoped>
+.main_text {
+  font-size: 1.4rem;
+  padding: 1rem;
+}
 .race_control {
     display: flex;
     align-items: center;
@@ -43,6 +47,7 @@ export default {
     border-top: 0;
     border-bottom: 0;
     font-weight: bolder;
+    width: 258px;
 }
 .notification_logo {
     margin: 2rem;
