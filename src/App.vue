@@ -55,7 +55,7 @@ export default {
     });
     ipcRenderer.on('event-data', (event, data) => {
       this.last_event = { code: data.m_eventStringCode, details: data.m_eventDetails };
-      //this.inicialiceNotification(this.last_event);
+      this.inicialiceNotification(this.last_event);
     });
   },
   beforeDestroy() {
@@ -66,7 +66,16 @@ export default {
   methods: {
     inicialiceNotification(event) {
       if(event.code == 'CHQF') {
-        this.notification_data = { type: 'yellow_flag', text: 'Yellow flag in ahead'};
+        this.notification_data = { type: 'checked_flag', text: 'End of the race'};
+        this.showNotificationWithTimer();
+      }else if(event.code == 'DRSE') {
+        this.notification_data = { type: 'drs_on', text: 'DRS Active'};
+        this.showNotificationWithTimer();
+      }else if(event.code == 'DRSD') {
+        this.notification_data = { type: 'drs_off', text: 'DRS Disabled'};
+        this.showNotificationWithTimer();
+      }else if(event.code == 'RTMT') {
+        this.notification_data = { type: 'retirement', text: this.participantsData[event.data.vehicleIdx].m_name  + ' has retired'};
         this.showNotificationWithTimer();
       }
     },
@@ -102,7 +111,7 @@ export default {
       <div class="header_button" @click="page = 'car'">CAR</div>
       <div class="header_button" @click="page = 'standings'">STANDINGS</div>
       <img height="60" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/2560px-F1.svg.png" alt="">
-      <div class="header_button" @click="page = 'strategy', inicialiceNotification({code: 'CHQF'})">STRATEGY</div>
+      <div class="header_button" @click="page = 'strategy'">STRATEGY</div>
       <div class="header_button" @click="page = 'config'">CONFIG</div>
     </header>
     <div class="page">
