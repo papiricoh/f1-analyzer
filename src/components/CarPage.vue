@@ -200,7 +200,7 @@ export default {
           <div class="engine_label" :style="checkColorCss(engine.gearbox)">Gearbox: {{ engine.gearbox }}% <font-awesome-icon v-if="engine.gearbox >= 90" style="height: 1.4rem; color: #b53939;" icon="fa-solid fa-warning" /></div>
         </div>
       </div>
-      <div>
+      <div class="engine_data_container">
         <div class="engineTemp_container">
           <font-awesome-icon style="height: 2rem;" icon="fa-solid fa-temperature-2" />
           <div>{{ car.engTemp }}º</div>
@@ -245,6 +245,12 @@ export default {
 </template>
 
 <style scoped>
+.engine_data_container {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 50%;
+}
 .g_force_lateral {
   display: flex;
   align-items: center;
