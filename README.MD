@@ -17,7 +17,7 @@ Future planned features include:
 
 ## F1 22 Configuration
 
-Activate UDP configuration for your game, **do not set it to Broadcast Mode**.
+Activate UDP configuration for your game, **Broadcast Mode supported**.
 
 ## Contributing
 
