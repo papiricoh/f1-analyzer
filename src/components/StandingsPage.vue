@@ -17,7 +17,7 @@ export default {
         cars: [],
         renderer_cars: [],
         render_index: 0,
-        
+        tyres: [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         
     };
   },
@@ -76,6 +76,11 @@ export default {
         for (let index = 0; index < new_list.length; index++) {
             if(new_list[index] == player_car) {
                 this.render_index = index;
+            }
+        }
+        for (let index = 0; index < new_list.length; index++) {
+            if(new_list[index].tyre != this.tyres[index]) {
+                this.tyres[index] = new_list[index].tyre;
             }
         }
         if(fastest_lap.name != null) {
@@ -195,11 +200,11 @@ export default {
                 <div>{{car.name}}</div>
                 <div>{{renderTeam(car.team)}}</div>
                 <div>
-                    <img v-if="car.tyre == 16" height="30" src="/tyres/soft.svg" alt="">
-                    <img v-else-if="car.tyre == 17" height="30" src="/tyres/medium.svg" alt="">
-                    <img v-else-if="car.tyre == 18" height="30" src="/tyres/hard.svg" alt="">
-                    <img v-else-if="car.tyre == 7" height="30" src="/tyres/intermediate.svg" alt="">
-                    <img v-else-if="car.tyre == 8" height="30" src="/tyres/wet.svg" alt="">
+                    <img v-if="tyres[index] == 16" height="30" src="/tyres/soft.svg" alt="">
+                    <img v-else-if="tyres[index] == 17" height="30" src="/tyres/medium.svg" alt="">
+                    <img v-else-if="tyres[index] == 18" height="30" src="/tyres/hard.svg" alt="">
+                    <img v-else-if="tyres[index] == 7" height="30" src="/tyres/intermediate.svg" alt="">
+                    <img v-else-if="tyres[index] == 8" height="30" src="/tyres/wet.svg" alt="">
                     <img v-else height="30" src="/tyres/soft.svg" alt="">
                     <div class="tyre_age">{{car.tyre_age}}</div>
                 </div>
