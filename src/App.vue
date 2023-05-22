@@ -27,7 +27,7 @@ export default {
         mph: false,
       },
       
-      notification_on: true,
+      notification_on: false,
       notification_data: { type: 'yellow_flag', text: 'Yellow flag in sector 3: Versapen\'s Crash into turn 14'},
     };
   },
