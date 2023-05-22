@@ -55,7 +55,7 @@ export default {
     });
     ipcRenderer.on('event-data', (event, data) => {
       this.last_event = { code: data.m_eventStringCode, details: data.m_eventDetails };
-      this.inicialiceNotification(this.last_event);
+      //this.inicialiceNotification(this.last_event);
     });
   },
   beforeDestroy() {
@@ -72,7 +72,7 @@ export default {
     },
     showNotificationWithTimer() {
       this.notification_on = true;
-      let counter = 10;
+      let counter = 6;
 
       const timer = setInterval(() => {
         counter--;
@@ -80,7 +80,7 @@ export default {
           clearInterval(timer);
           this.notification_on = false;
         }
-      }, counter * 1000);
+      }, 1000);
     },
     closeNotification() {
       this.notification_on = false;
@@ -102,7 +102,7 @@ export default {
       <div class="header_button" @click="page = 'car'">CAR</div>
       <div class="header_button" @click="page = 'standings'">STANDINGS</div>
       <img height="60" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/F1.svg/2560px-F1.svg.png" alt="">
-      <div class="header_button" @click="page = 'strategy'">STRATEGY</div>
+      <div class="header_button" @click="page = 'strategy', inicialiceNotification({code: 'CHQF'})">STRATEGY</div>
       <div class="header_button" @click="page = 'config'">CONFIG</div>
     </header>
     <div class="page">

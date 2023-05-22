@@ -2,10 +2,11 @@
 export default {
   props: {
     data: Object,
+    default: { type: 'yellow_flag', text: 'Yellow flag in sector 3: Versapen\'s Crash into turn 14'}
   },
   data() {
     return {
-        text: "",
+        
     };
   },
   methods: {
@@ -24,7 +25,7 @@ export default {
                 <div class="race_control">RACE CONTROL</div>
             </div>
             <div class="main_text">
-              {{ text }} 
+              {{ data.text }} 
             </div>
         </div>
     </div>
