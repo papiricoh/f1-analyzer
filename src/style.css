@@ -153,20 +153,3 @@ header > img {
     display: flex;
     justify-content: center;
 }
-
-.notification_body {
-    background-color: #03071eca;
-    height: 10rem;
-    width: 86rem;
-    margin: 2rem;
-    margin-top: 8rem;
-    transition: .4s;
-    z-index: 5;
-    display: flex;
-    align-items: center;
-    border-bottom-right-radius: 2rem;
-}
-
-.notification_body > * {
-    color: white;
-}
