@@ -31,5 +31,9 @@ export default {
 </template>
 
 <style scoped>
-
+.strategy_dashboard {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+}
 </style>
