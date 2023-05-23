@@ -33,6 +33,7 @@ export default {
         <div v-else class="pit_window_status pit_window_status_red">CLOSED</div>
         <div style="border-top: 1px solid white; width: 70%; align-self: center;"></div>
         <div class="estimated_laps">Laps {{pit_stop.ideal_lap}} - {{pit_stop.latest_lap}}</div>
+        <div class="estimated_laps">Current: {{current_lap}}</div>
     </div>
   </div>
 </template>
