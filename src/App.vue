@@ -3,6 +3,7 @@ import CarPage from './components/CarPage.vue';
 import StandingsPage from './components/StandingsPage.vue';
 import Notification from './components/Notification.vue';
 import ConfigPage from './components/ConfigPage.vue';
+import StrategyPage from './components/StrategyPage.vue';
 </script>
 
 <script>
@@ -121,6 +122,7 @@ export default {
       <CarPage :player_motionData="player_motionData" :mph="config.mph" :car_damage="car_damage" :car_index="car_index" :telemetry="telemetryData" v-if="page == 'car'"></CarPage>
       <StandingsPage :my_team="config.my_team" :num_cars="num_cars" :carStatus="carStatus" :lapData="lapData" :car_index="lapPlayerIndex" :participantsData="participantsData" v-if="page == 'standings'"></StandingsPage>
       <ConfigPage @pageStandings="pageStandings" @updateConfig="updateConfig" :config="config" v-if="page == 'config'"></ConfigPage>
+      <StrategyPage v-if="page == 'strategy'"></StrategyPage>
     </div>
     <Notification @closeNotification="closeNotification" :data="notification_data" class="notification" v-if="notification_on"></Notification>
   </div>
