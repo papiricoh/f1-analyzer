@@ -128,6 +128,6 @@ export default {
       <StrategyPage v-if="page == 'strategy'"></StrategyPage>
     </div>
     <Notification @closeNotification="closeNotification" :data="notification_data" class="notification" v-if="notification_on"></Notification>
-    <FinalStandings></FinalStandings>
+    <FinalStandings v-if="final_standings_on"></FinalStandings>
   </div>
 </template>
