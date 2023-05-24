@@ -8,15 +8,15 @@ export default {
     return {
         drivers: [
             { pos: 1, name: "HAMILTON", nationality: "british", team: "Mercedes", time: 2201000, points: 28 },
-            { pos: 2, name: "RUSSELL", nationality: "british", team: "Mercedes", time: 201000, points: 16 },
-            { pos: 3, name: "LECLERC", nationality: "british", team: "Mercedes", time: 201000, points: 8 },
-            { pos: 4, name: "HAMILTON", nationality: "british", team: "Mercedes", time: 201000, points: 7 },
-            { pos: 5, name: "RUSSELL", nationality: "british", team: "Mercedes", time: 201000, points: 6 },
-            { pos: 6, name: "LECLERC", nationality: "british", team: "Mercedes", time: 201000, points: 5 },
-            { pos: 7, name: "HAMILTON", nationality: "british", team: "Mercedes", time: 201000, points: 4 },
-            { pos: 8, name: "RUSSELL", nationality: "british", team: "Mercedes", time: 201000, points: 3 },
-            { pos: 9, name: "LECLERC", nationality: "british", team: "Mercedes", time: 201000, points: 2 },
-            { pos: 10, name: "LECLERC", nationality: "british", team: "Mercedes", time: 201000, points: 1 },
+            { pos: 2, name: "RUSSELL", nationality: "british", team: "Mercedes", time: 2201200, points: 16 },
+            { pos: 3, name: "LECLERC", nationality: "british", team: "Mercedes", time: 2201500, points: 8 },
+            { pos: 4, name: "HAMILTON", nationality: "british", team: "Mercedes", time: 2202200, points: 7 },
+            { pos: 5, name: "RUSSELL", nationality: "british", team: "Mercedes", time: 2205200, points: 6 },
+            { pos: 6, name: "LECLERC", nationality: "british", team: "Mercedes", time: 2206200, points: 5 },
+            { pos: 7, name: "HAMILTON", nationality: "british", team: "Mercedes", time: 2210200, points: 4 },
+            { pos: 8, name: "RUSSELL", nationality: "british", team: "Mercedes", time: 2212200, points: 3 },
+            { pos: 9, name: "LECLERC", nationality: "british", team: "Mercedes", time: 2214200, points: 2 },
+            { pos: 10, name: "LECLERC", nationality: "british", team: "Mercedes", time: 2215200, points: 1 },
         ],
 
         fastest_lap: { time: 12000, name: "LECLERC" },
@@ -40,11 +40,12 @@ export default {
                         <div class="standings_main_title">RACE RESULT</div>
                         <div class="x_button">X</div>
                     </div>
-                    <div class="f_standings_row" v-for="driver in drivers">
+                    <div class="f_standings_row" v-for="driver, index in drivers">
                         <div class="position">{{driver.pos}}</div>
                         <div class="driver_name">{{driver.name}}</div>
                         <div class="driver_team">{{driver.team}}</div>
-                        <div class="driver_time">{{new Date(driver.time).toISOString().slice(12, -1)}}</div>
+                        <div v-if="index == 0" class="driver_time">{{new Date(driver.time).toISOString().slice(12, -1)}}</div>
+                        <div v-else class="driver_time">+{{new Date(driver.time - drivers[0].time).toISOString().slice(15, -1)}}</div>
                         <div class="driver_points">+{{driver.points}}</div>
                     </div>
                     <div class="f_footer">
