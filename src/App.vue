@@ -4,6 +4,7 @@ import StandingsPage from './components/StandingsPage.vue';
 import Notification from './components/Notification.vue';
 import ConfigPage from './components/ConfigPage.vue';
 import StrategyPage from './components/StrategyPage.vue';
+import FinalStandings from './components/FinalStandings.vue';
 </script>
 
 <script>
@@ -28,6 +29,8 @@ export default {
         mph: false,
       },
       
+      final_standings_on: false,
+
       notification_on: false,
       notification_data: { type: 'yellow_flag', text: 'Yellow flag in sector 3: Versapen\'s Crash into turn 14'},
     };
@@ -125,5 +128,6 @@ export default {
       <StrategyPage v-if="page == 'strategy'"></StrategyPage>
     </div>
     <Notification @closeNotification="closeNotification" :data="notification_data" class="notification" v-if="notification_on"></Notification>
+    <FinalStandings></FinalStandings>
   </div>
 </template>
