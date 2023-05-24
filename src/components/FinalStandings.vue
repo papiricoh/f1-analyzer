@@ -7,10 +7,19 @@ export default {
   data() {
     return {
         drivers: [
-            { pos: 1, name: "HAMILTON", nationality: "british", team: "Mercedes", time: 201000, points: 25 },
-            { pos: 2, name: "RUSSELL", nationality: "british", team: "Mercedes", time: 201000, points: 25 },
-            { pos: 3, name: "LECLERC", nationality: "british", team: "Mercedes", time: 201000, points: 25 },
-        ]
+            { pos: 1, name: "HAMILTON", nationality: "british", team: "Mercedes", time: 2201000, points: 28 },
+            { pos: 2, name: "RUSSELL", nationality: "british", team: "Mercedes", time: 201000, points: 16 },
+            { pos: 3, name: "LECLERC", nationality: "british", team: "Mercedes", time: 201000, points: 8 },
+            { pos: 4, name: "HAMILTON", nationality: "british", team: "Mercedes", time: 201000, points: 7 },
+            { pos: 5, name: "RUSSELL", nationality: "british", team: "Mercedes", time: 201000, points: 6 },
+            { pos: 6, name: "LECLERC", nationality: "british", team: "Mercedes", time: 201000, points: 5 },
+            { pos: 7, name: "HAMILTON", nationality: "british", team: "Mercedes", time: 201000, points: 4 },
+            { pos: 8, name: "RUSSELL", nationality: "british", team: "Mercedes", time: 201000, points: 3 },
+            { pos: 9, name: "LECLERC", nationality: "british", team: "Mercedes", time: 201000, points: 2 },
+            { pos: 10, name: "LECLERC", nationality: "british", team: "Mercedes", time: 201000, points: 1 },
+        ],
+
+        fastest_lap: { time: 12000, name: "LECLERC" },
     };
   },
   watch: {
@@ -29,6 +38,7 @@ export default {
                 <div class="final_standings_table">
                     <div class="f_standings_title">
                         <div class="standings_main_title">RACE RESULT</div>
+                        <div class="x_button">X</div>
                     </div>
                     <div class="f_standings_row" v-for="driver in drivers">
                         <div class="position">{{driver.pos}}</div>
@@ -37,6 +47,9 @@ export default {
                         <div class="driver_time">{{new Date(driver.time).toISOString().slice(12, -1)}}</div>
                         <div class="driver_points">+{{driver.points}}</div>
                     </div>
+                    <div class="f_footer">
+                        Fastest Lap: {{ fastest_lap.name }} - {{ new Date(fastest_lap.time).toISOString().slice(12, -1) }}
+                    </div>
                 </div>
             </div>
         </div>
@@ -44,6 +57,34 @@ export default {
 </template>
 
 <style scoped>
+.f_footer {
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    font-size: 1.8rem;
+}
+.x_button {
+    border: 1px solid white;
+    border-radius: 1rem;
+    padding: 1rem;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .4s;
+    cursor: pointer;
+}
+.x_button:hover {
+    color: black;
+    background-color: white;
+    transition: .4s;
+}
+.f_footer {
+    height: 4rem;
+    background-color: black;
+    border-bottom-right-radius: 1rem;
+}
 .driver_name, .driver_team, .driver_time, .driver_points {
     font-size: 2rem;
     font-weight: bold;
@@ -67,8 +108,8 @@ export default {
 .f_standings_row {
     display: grid;
     grid-template-columns: 1fr 4fr 4fr 4fr 2fr;
-    margin-top: .4rem;
-    margin-bottom: .4rem;
+    margin-top: .6rem;
+    margin-bottom: .6rem;
     align-items: center;
     justify-content: center;
     gap: 1rem;
@@ -93,26 +134,24 @@ export default {
     border-top: 2px solid #d30202;
     border-top-right-radius: 1rem;
     border-bottom-right-radius: 1rem;
+    background-color: rgba(0, 0, 0, 0.718);
 }
 .main_container {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
-    background-color: rgba(0, 0, 0, 0.718);
     border-radius: 1rem;
     align-items: center;
 }
 .container_border {
     width: 90%;
     height: 90%;
-    background-color: rgba(255, 255, 255, 0.385);
     border-radius: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 1rem;
-    border: 2px solid rgba(255, 255, 255, 0.548);
 }
 .transparent_container {
     display: flex;
