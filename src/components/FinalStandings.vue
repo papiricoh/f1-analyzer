@@ -26,7 +26,9 @@ export default {
     
   },
   methods: {
-    
+    closeFinalStandings() {
+        this.$emit('closeFinalStandings');
+    }
   }
 };
 </script>
@@ -38,7 +40,7 @@ export default {
                 <div class="final_standings_table">
                     <div class="f_standings_title">
                         <div class="standings_main_title">RACE RESULT</div>
-                        <div class="x_button">X</div>
+                        <div @click="closeFinalStandings" class="x_button">X</div>
                     </div>
                     <div class="f_standings_row" v-for="driver, index in drivers">
                         <div class="position">{{driver.pos}}</div>

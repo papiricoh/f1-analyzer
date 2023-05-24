@@ -101,6 +101,9 @@ export default {
     closeNotification() {
       this.notification_on = false;
     },
+    closeFinalStandings() {
+      this.final_standings_on = false;
+    },
     updateConfig(config) {
       this.config = config;
     },
@@ -128,6 +131,6 @@ export default {
       <StrategyPage v-if="page == 'strategy'"></StrategyPage>
     </div>
     <Notification @closeNotification="closeNotification" :data="notification_data" class="notification" v-if="notification_on"></Notification>
-    <FinalStandings v-if="final_standings_on"></FinalStandings>
+    <FinalStandings @closeFinalStandings="closeFinalStandings" v-if="final_standings_on"></FinalStandings>
   </div>
 </template>
