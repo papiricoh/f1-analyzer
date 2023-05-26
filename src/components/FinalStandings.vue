@@ -2,10 +2,12 @@
 
 export default {
   props: {
-    
+    finalStandings: Object
   },
   data() {
     return {
+        player_id: 0,
+
         drivers: [
             { pos: 1, name: "HAMILTON", nationality: "british", team: "Mercedes", time: 2201000, points: 28 },
             { pos: 2, name: "RUSSELL", nationality: "british", team: "Mercedes", time: 2201200, points: 16 },
@@ -23,7 +25,9 @@ export default {
     };
   },
   watch: {
-    
+    finalStandings: function(newVal, oldVal) {
+        
+    },
   },
   methods: {
     closeFinalStandings() {
