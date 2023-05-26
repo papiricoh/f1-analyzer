@@ -223,11 +223,12 @@ export default {
     color: black;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: .8rem;
     background-color: white;
     border-radius: .1rem;
     border-bottom-right-radius: 1.2rem;
     height: 1rem;
     aspect-ratio: 1/1;
+    font-size: 1.2rem;
 }
 </style>
