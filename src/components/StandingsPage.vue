@@ -191,7 +191,7 @@ export default {
                 <div>LAST LAP</div>
             </div>
             <div v-for="(car, index) in renderer_cars" class="table_row" :style="isPlayerCss(index)">
-                <div>{{car.pos}}</div>
+                <div class="position">{{car.pos}}</div>
                 <div>{{car.name}}</div>
                 <div>{{renderTeam(car.team)}}</div>
                 <div>
@@ -215,3 +215,20 @@ export default {
         </div>
     </div>
 </template>
+
+
+<style scoped>
+.position {
+    display: flex;
+    color: black;
+    align-items: center;
+    justify-content: center;
+    padding: .8rem;
+    background-color: white;
+    border-radius: .1rem;
+    border-bottom-right-radius: 1.2rem;
+    height: 1rem;
+    aspect-ratio: 1/1;
+    font-size: 1.2rem;
+}
+</style>
