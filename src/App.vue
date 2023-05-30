@@ -23,6 +23,7 @@ export default {
       player_motionData: null,
       num_cars: 0,
       car_damage: null,
+      player_wheelSlip: null, //TODO
       last_event: { code: null, details: null },
       config: {
         my_team: { custom_team_name: "Custom Team", allowed: false },
@@ -42,6 +43,7 @@ export default {
     });
     ipcRenderer.on('motion-data', (event, data) => {
       this.player_motionData = data.m_carMotionData[this.car_index];
+      this.player_wheelSlip = data.m_wheelSlip;
     });
     ipcRenderer.on('participants-data', (event, data) => {
       this.participantsData = data.m_participants;

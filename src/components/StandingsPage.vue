@@ -200,7 +200,7 @@ export default {
                     <img v-else-if="car.tyre == 18" height="30" src="/tyres/hard.svg" alt="">
                     <img v-else-if="car.tyre == 7" height="30" src="/tyres/intermediate.svg" alt="">
                     <img v-else-if="car.tyre == 8" height="30" src="/tyres/wet.svg" alt="">
-                    <img v-else height="30" src="/tyres/soft.svg" alt="">
+                    <img v-else height="30" src="/tyres/hard.svg" alt="">
                     <div class="tyre_age">{{car.tyre_age}}</div>
                 </div>
                 <div v-if="car.fastest_lap == 1000000000">--:--</div>
